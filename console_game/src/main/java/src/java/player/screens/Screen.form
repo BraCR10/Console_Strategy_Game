@@ -586,9 +586,7 @@
                               <Component id="card2Label" alignment="0" min="-2" pref="240" max="-2" attributes="0"/>
                               <Component id="card3Label" alignment="0" min="-2" pref="240" max="-2" attributes="0"/>
                               <Component id="card4Label" alignment="0" min="-2" pref="240" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="card1Label" alignment="3" min="-2" pref="240" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="card1Label" min="-2" pref="240" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
@@ -742,11 +740,11 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jScrollPane8" pref="212" max="32767" attributes="0"/>
                           <Group type="102" attributes="0">
                               <Component id="chatLabel" min="-2" pref="75" max="-2" attributes="0"/>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="137" max="32767" attributes="0"/>
                           </Group>
+                          <Component id="jScrollPane8" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
