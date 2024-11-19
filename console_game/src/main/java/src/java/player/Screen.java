@@ -76,10 +76,11 @@ public class Screen extends javax.swing.JFrame {
         cardPomptTextField = new javax.swing.JTextField();
         chatPanel = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        chatBoxTextArea = new javax.swing.JTextArea();
         jScrollPane11 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        jButton1 = new javax.swing.JButton();
+        chatTextArea = new javax.swing.JTextArea();
+        chatSendButton = new javax.swing.JButton();
+        chatLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -210,10 +211,9 @@ public class Screen extends javax.swing.JFrame {
         consolePanelLayout.setHorizontalGroup(
             consolePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(consolePanelLayout.createSequentialGroup()
-                .addGroup(consolePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(consoleLabel)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 1112, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(consoleLabel)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jScrollPane1)
         );
         consolePanelLayout.setVerticalGroup(
             consolePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -471,46 +471,48 @@ public class Screen extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane8.setViewportView(jTextArea1);
+        chatBoxTextArea.setEditable(false);
+        chatBoxTextArea.setColumns(20);
+        chatBoxTextArea.setRows(5);
+        jScrollPane8.setViewportView(chatBoxTextArea);
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane11.setViewportView(jTextArea2);
+        chatTextArea.setColumns(20);
+        chatTextArea.setRows(5);
+        jScrollPane11.setViewportView(chatTextArea);
 
-        jButton1.setText("SEND");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        chatSendButton.setText("SEND");
+        chatSendButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                chatSendButtonActionPerformed(evt);
             }
         });
+
+        chatLabel.setText("CHAT");
 
         javax.swing.GroupLayout chatPanelLayout = new javax.swing.GroupLayout(chatPanel);
         chatPanel.setLayout(chatPanelLayout);
         chatPanelLayout.setHorizontalGroup(
             chatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(chatPanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane11, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 11, Short.MAX_VALUE))
-            .addGroup(chatPanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane8)
+                .addGroup(chatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 212, Short.MAX_VALUE)
+                    .addGroup(chatPanelLayout.createSequentialGroup()
+                        .addComponent(chatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane11, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(chatSendButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         chatPanelLayout.setVerticalGroup(
             chatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(chatPanelLayout.createSequentialGroup()
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(chatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(chatPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36))
-                    .addGroup(chatPanelLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))))
+                .addComponent(chatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane11, javax.swing.GroupLayout.DEFAULT_SIZE, 90, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(chatSendButton, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
@@ -520,7 +522,7 @@ public class Screen extends javax.swing.JFrame {
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(consolePanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(consolePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(mainPanelLayout.createSequentialGroup()
                         .addComponent(leftPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -528,8 +530,7 @@ public class Screen extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(rightPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(chatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(chatPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         mainPanelLayout.setVerticalGroup(
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -561,9 +562,9 @@ public class Screen extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void chatSendButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chatSendButtonActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_chatSendButtonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -581,11 +582,14 @@ public class Screen extends javax.swing.JFrame {
     private javax.swing.JTextField cardPomptTextField;
     private javax.swing.JPanel cardsPanel;
     private javax.swing.JPanel centrePanel;
+    private javax.swing.JTextArea chatBoxTextArea;
+    private javax.swing.JLabel chatLabel;
     private javax.swing.JPanel chatPanel;
+    private javax.swing.JButton chatSendButton;
+    private javax.swing.JTextArea chatTextArea;
     private javax.swing.JLabel consoleLabel;
     private javax.swing.JPanel consolePanel;
     private javax.swing.JTextArea consoleTextArea;
-    private javax.swing.JButton jButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane11;
@@ -597,8 +601,6 @@ public class Screen extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane7;
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
     private javax.swing.JLabel lastAttackReceivedLabel;
     private javax.swing.JPanel lastAttackReceivedPanel;
     private javax.swing.JTextArea lastAttackReceivedTextArea;
