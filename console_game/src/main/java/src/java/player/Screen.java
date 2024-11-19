@@ -20,9 +20,9 @@ public class Screen extends javax.swing.JFrame {
      */
     public Screen() {
         initComponents();
-        
-        for (int i = 0; i < 4; i++) 
-            tableLastAttackReceived.setValueAt("", i, 0);
+        this.setVisible(false);
+        for (int i = 0; i < 4; i++)tableLastAttackReceived.setValueAt("", i, 0);
+        for (int i = 0; i < 10; i++)tableRankings.setValueAt(String.valueOf(i+1), i, 0);
         
     }
     /**
@@ -416,7 +416,7 @@ public class Screen extends javax.swing.JFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true, true, true, true, true, true, true, true
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -426,6 +426,15 @@ public class Screen extends javax.swing.JFrame {
         jScrollPane9.setViewportView(tableCardStats);
         if (tableCardStats.getColumnModel().getColumnCount() > 0) {
             tableCardStats.getColumnModel().getColumn(0).setResizable(false);
+            tableCardStats.getColumnModel().getColumn(1).setResizable(false);
+            tableCardStats.getColumnModel().getColumn(2).setResizable(false);
+            tableCardStats.getColumnModel().getColumn(3).setResizable(false);
+            tableCardStats.getColumnModel().getColumn(4).setResizable(false);
+            tableCardStats.getColumnModel().getColumn(5).setResizable(false);
+            tableCardStats.getColumnModel().getColumn(6).setResizable(false);
+            tableCardStats.getColumnModel().getColumn(7).setResizable(false);
+            tableCardStats.getColumnModel().getColumn(8).setResizable(false);
+            tableCardStats.getColumnModel().getColumn(9).setResizable(false);
         }
 
         cardPomptTextField.setEditable(false);
@@ -505,37 +514,6 @@ public class Screen extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Screen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Screen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Screen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Screen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Screen().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField card1AvgTextField;
