@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package src.java.utils;
+package utils;
 
 import java.awt.Image;
 import javax.swing.ImageIcon;
@@ -13,9 +13,15 @@ import javax.swing.ImageIcon;
  */
 public  class LoadImage {
     public static ImageIcon loadImageAdjusted(String path, int width, int height) {
-        ImageIcon originalIcon = new ImageIcon(LoadImage.class.getResource(path)); 
-        Image originalImage = originalIcon.getImage();
-        Image resizedImage = originalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
-        return new ImageIcon(resizedImage);
+        try {
+            ImageIcon originalIcon = new ImageIcon(LoadImage.class.getResource(path)); 
+            Image originalImage = originalIcon.getImage();
+            Image resizedImage = originalImage.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+            return new ImageIcon(resizedImage);
+        } catch (Exception e) {
+            System.out.println("Image: "+path+" not found!");
+            return  null;
+        }
+  
     }
 }

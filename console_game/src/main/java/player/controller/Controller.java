@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package src.java.player.controller;
+package player.controller;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
-import src.java.player.screens.Screen;
-import src.java.player.serverConnection.ServerConnectionManager;
-import src.java.utils.LoadImage;
+import player.screens.Screen;
+import player.serverConnection.ServerConnectionManager;
+import utils.LoadImage;
 
 /**
  *
@@ -18,6 +18,10 @@ import src.java.utils.LoadImage;
 public class Controller  {
     private Screen playerScreen;
     private ServerConnectionManager playerData;
+    
+    //screen settings
+    private final int CART_WIDTH=120;
+    private final int CART_HEIGHT=200;
 
     public Controller(Screen playerScreen, ServerConnectionManager data) {
         this.playerScreen = playerScreen;
@@ -49,10 +53,10 @@ public class Controller  {
     }
     private void setCards(){
         
-        this.playerScreen.getCard1Label().setIcon(LoadImage.loadImageAdjusted("cards//darkMagician.jpeg", 50, 50));
-        this.playerScreen.getCard2Label().setIcon(LoadImage.loadImageAdjusted("cards//darkMagician.jpeg", 50, 50));
-        this.playerScreen.getCard3Label().setIcon(LoadImage.loadImageAdjusted("cards//darkMagician.jpeg", 50, 50));
-        this.playerScreen.getCard4Label().setIcon(LoadImage.loadImageAdjusted("cards//darkMagician.jpeg", 50, 50));
+        this.playerScreen.getCard1Label().setIcon(LoadImage.loadImageAdjusted("/cards/darkMagician.jpeg", CART_WIDTH, CART_HEIGHT));
+        this.playerScreen.getCard2Label().setIcon(LoadImage.loadImageAdjusted("/cards//darkMagician.jpeg", CART_WIDTH, CART_HEIGHT));
+        this.playerScreen.getCard3Label().setIcon(LoadImage.loadImageAdjusted("/cards//darkMagician.jpeg", CART_WIDTH, CART_HEIGHT));
+        this.playerScreen.getCard4Label().setIcon(LoadImage.loadImageAdjusted("/cards//darkMagician.jpeg", CART_WIDTH, CART_HEIGHT));
     
     
     }
