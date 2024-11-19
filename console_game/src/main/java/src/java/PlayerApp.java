@@ -4,9 +4,9 @@
  */
 package src.java;
 
-import src.java.player.Controller;
-import src.java.player.Screen;
-import src.java.player.ServerConnectionManager;
+import src.java.player.controller.Controller;
+import src.java.player.screens.Screen;
+import src.java.player.serverConnection.ServerConnectionManager;
 
 /**
  *

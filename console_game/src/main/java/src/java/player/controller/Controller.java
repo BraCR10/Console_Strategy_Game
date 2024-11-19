@@ -2,11 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package src.java.player;
+package src.java.player.controller;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
+import src.java.player.screens.Screen;
+import src.java.player.serverConnection.ServerConnectionManager;
 
 /**
  *
@@ -14,11 +16,11 @@ import javax.swing.JLabel;
  */
 public class Controller  {
     private Screen playerScreen;
-    private ServerConnectionManager data;
+    private ServerConnectionManager playerData;
 
     public Controller(Screen playerScreen, ServerConnectionManager data) {
         this.playerScreen = playerScreen;
-        this.data = data;
+        this.playerData = data;
         init();
     }
     private void init() {
@@ -27,6 +29,8 @@ public class Controller  {
         addClickListener(playerScreen.getCard2Label());
         addClickListener(playerScreen.getCard3Label());
         addClickListener(playerScreen.getCard4Label());
+        this.playerData.connectChat(this);
+        this.playerData.connectGame(this);
     }
     public void showScreen(){
         this.playerScreen.setVisible(true);
@@ -42,7 +46,11 @@ public class Controller  {
         });
     }
 
- 
+    public Screen getPlayerScreen() {
+        return playerScreen;
+    }
+
+    
     
     
     
