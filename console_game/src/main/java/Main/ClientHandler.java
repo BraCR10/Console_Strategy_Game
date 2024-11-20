@@ -19,7 +19,15 @@ public class ClientHandler {
    
     public String ID;
     public ArrayList<Warrior> warriors;
-        
+    
+    
+    //the idea is to receive only strings by console
+    //the server will convert the string to a command with the tokenizerArgs or something similar
+    //then the server will send 2 objs to the client a ICommand command and String[] Args
+    //finally the client  execute it locally
+    
+    //NOTE: If you hae any  other idea let me know
+
     public ClientHandler(Socket socket) {   
         try {    
             this.socket = socket;
