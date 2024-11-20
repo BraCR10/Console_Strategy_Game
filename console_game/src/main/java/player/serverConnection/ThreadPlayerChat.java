@@ -11,10 +11,7 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Brian Ramirez
- */
+
 public class ThreadPlayerChat extends Thread{
     private boolean isRunning;
     private Socket socket;

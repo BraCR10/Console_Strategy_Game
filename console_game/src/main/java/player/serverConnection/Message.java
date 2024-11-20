@@ -11,6 +11,7 @@ import java.io.Serializable;
  * @author Brian Ramirez
  */
 public class Message implements Serializable {
+    
     public enum MessageType { 
         PUBLIC, 
         PRIVATE 

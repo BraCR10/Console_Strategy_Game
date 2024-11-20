@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package player.controller;
 
 import java.awt.event.MouseAdapter;
@@ -11,10 +7,6 @@ import player.screens.Screen;
 import player.serverConnection.ServerConnectionManager;
 import utils.LoadImage;
 
-/**
- *
- * @author Brian Ramirez
- */
 public class Controller  {
     private Screen playerScreen;
     private ServerConnectionManager playerData;
@@ -38,9 +30,9 @@ public class Controller  {
         this.playerData.connectGame(this);
         setCards();
     }
+    
     public void showScreen(){
         this.playerScreen.setVisible(true);
-    
     }
     
     private void addClickListener(JLabel label) {
@@ -64,8 +56,5 @@ public class Controller  {
         return playerScreen;
     }
 
-    
-    
-    
     
 }
