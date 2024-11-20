@@ -4,7 +4,7 @@ import Threads.AcceptClients;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
-import utils.Message;
+import Utils.Message;
 
 public class GameServer {
     ServerSocket server;

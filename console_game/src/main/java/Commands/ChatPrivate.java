@@ -4,13 +4,13 @@
  */
 package Commands;
 
-import utils.Message;
+import Utils.Message;
 
 /**
  *
  * @author Brian Ramirez
  */
 public class ChatPrivate {
-    Message msg;//Todo: convert the Stromg msg sent by the user and build the Message msg
+    Message msg;//Todo: convert the String msg sent by the user and build the Message msg
                 // then usen broadcoast or privateMsg functions in gameServe
 }

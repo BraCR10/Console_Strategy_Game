@@ -1,4 +1,4 @@
-package player.controller;
+package player.Controller;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -7,9 +7,9 @@ import java.io.IOException;
 
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
-import player.screens.ClientGameScreen;
-import player.serverConnection.ClientConnectionManager;
-import utils.LoadImage;
+import player.Screens.ClientGameScreen;
+import player.ServerConnections.ClientConnectionManager;
+import Utils.LoadImage;
 
 public class ClientController  {
     private ClientGameScreen playerScreen;

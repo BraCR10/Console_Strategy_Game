@@ -3,9 +3,9 @@ package Main;
 import Threads.StrategyTimer;
 import Warriors.Warrior;
 import java.util.ArrayList;
-import player.controller.ClientController;
-import player.screens.ClientGameScreen;
-import player.serverConnection.ClientConnectionManager;
+import player.Controller.ClientController;
+import player.Screens.ClientGameScreen;
+import player.ServerConnections.ClientConnectionManager;
 
 public class GameClient {
        
