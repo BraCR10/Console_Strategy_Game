@@ -2,14 +2,15 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package player.ServerConnections;
+package Player.ServerConnections;
 
+import Commands.ICommand;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import player.Controller.ClientController;
+import Player.Controller.ClientController;
 import Utils.Message;
 
 /**
@@ -35,14 +36,13 @@ public class ThreadClientListener extends Thread{
 
     @Override
     public void run() {
-        Message msg;
+        ICommand command;
+        String[] ARGS;
         while(isRunning){
             try {
-                msg = (Message) input.readObject();
-                String oldText=controller.getPlayerScreen().getChatBoxTextArea().getText();
-                controller.getPlayerScreen().getChatBoxTextArea().setText(oldText+"\n"
-                        +"----------------------------------------------------------------------------"
-                        +"\n"+msg.toString());
+                command = (ICommand) input.readObject();
+                ARGS=(String[]) input.readObject();
+                command.execute(ARGS);
             } catch (IOException ex) {
                 Logger.getLogger(ThreadClientListener.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {

@@ -1,24 +1,18 @@
 package Main;
 
-import Threads.StrategyTimer;
-import Warriors.Warrior;
-import java.util.ArrayList;
-import player.Controller.ClientController;
-import player.Screens.ClientGameScreen;
-import player.ServerConnections.ClientConnectionManager;
+
+import Player.Controller.ClientController;
+import Player.Screens.ClientGameScreen;
+import Player.ServerConnections.ClientConnectionManager;
 
 public class GameClient {
        
     
-    public ArrayList<Warrior> warriors;
-    StrategyTimer timer;
+    
     ClientController screenController;
     
     
-    public GameClient() throws InterruptedException {
-        
-        warriors = new ArrayList<>();
-                 
+    public GameClient() throws InterruptedException {        
         screenController = new ClientController(new ClientGameScreen(),new ClientConnectionManager());
         screenController.showScreen();
 

@@ -2,14 +2,17 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package player.ServerConnections;
+package Player.ServerConnections;
 
-import player.Controller.ClientController;
+import Player.Controller.ClientController;
+import Threads.StrategyTimer;
+import Warriors.Warrior;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 
 /**
  *
@@ -24,9 +27,13 @@ public class ClientConnectionManager {
     
     public DataInputStream in;
     public DataOutputStream out;
-    public ObjectOutputStream outObj;
+    public ObjectInputStream inObj;
     
+    //Todo: define how to get this data
     public String playerID;
+    public ArrayList<Warrior> warriors;
+    StrategyTimer timer;
+    
     //tread player
     ThreadClientListener thread;
     
@@ -35,6 +42,7 @@ public class ClientConnectionManager {
     public ClientConnectionManager(){
         //temp
         playerID="Juan";
+        this.warriors=new ArrayList<>();
     }
     
     //For game services
@@ -42,6 +50,8 @@ public class ClientConnectionManager {
             this.socketPlayerGame = new Socket("localhost", GAME_PORT);
             this.out = new DataOutputStream(socketPlayerGame.getOutputStream());
             this.in = new DataInputStream(socketPlayerGame.getInputStream());
+            this.inObj= new ObjectInputStream(socketPlayerGame.getInputStream());
+            
     }
 
 
