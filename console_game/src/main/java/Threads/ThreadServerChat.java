@@ -22,13 +22,14 @@ public class ThreadServerChat extends Thread{
     public ObjectOutputStream output;
     public DataInputStream inputData;
     public ObjectInputStream input;
-    String playerName;
+ 
     private  boolean  isRunning;
 
     public ThreadServerChat(Socket socket, GameServer server) {
         this.socket = socket;
         this.server = server;
         isRunning=true;
+        
         try {
             output=new ObjectOutputStream(socket.getOutputStream());
             inputData= new DataInputStream(socket.getInputStream());

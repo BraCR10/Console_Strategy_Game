@@ -47,5 +47,17 @@ public class GameServer {
         }
     
     }
+     public void privateMsg(Message msj){
+        
+        for (ThreadServerChat player : playersChat) {
+            try {
+                //if(player.)
+                player.output.writeObject(msj);
+            } catch (IOException ex) {
+                System.out.println("Unable to send a broadcoast message");
+            }
+        }
+    
+    }
     public static void main(String[] args) throws IOException { new GameServer(); }
 }
