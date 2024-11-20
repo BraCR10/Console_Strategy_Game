@@ -3,8 +3,7 @@ package player.controller;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
@@ -17,8 +16,8 @@ public class Controller  {
     private ServerConnectionManager playerData;
     
     //console variables
-    private int consoleLastPrintedPosition = 0;
-    private String userConsolePrompt;
+    private int consoleLastPrintedPosition = 0;//to collect the current command int the text area 
+    private String userConsolePrompt;//a user in the console
     
     //screen settings
     private final int CART_WIDTH=120;
@@ -32,7 +31,7 @@ public class Controller  {
     }
     private void init() {
         playerScreen.setTitle("Console Game");
-        this.playerScreen.getConsoleTextArea().setText(userConsolePrompt);//first prompt
+        this.writeConsoleln("Console initialized | User: "+this.playerData.namePlayer);//first prompt
         addClickListener(playerScreen.getCard1Label());
         addClickListener(playerScreen.getCard2Label());
         addClickListener(playerScreen.getCard3Label());
@@ -43,7 +42,7 @@ public class Controller  {
             this.playerData.connectChat(this);
             this.playerData.connectGame(this);
         } catch (IOException ex) {
-            writeConsoleln("Sorry the server is down!!!! [ServerConnectionManager.java -> connectGame(Controller)]",false);        }
+            writeConsoleln("Sorry the server is down!!!! [ServerConnectionManager.java -> connectGame(Controller)]");        }
         
         setCards();
         addEnterKeyListenerConsole();
@@ -61,6 +60,7 @@ public class Controller  {
             }
         });
     }
+    
     private void setCards(){
         
         this.playerScreen.getCard1Label().setIcon(LoadImage.loadImageAdjusted("/cards//Back.jpg", CART_WIDTH, CART_HEIGHT));
@@ -72,10 +72,10 @@ public class Controller  {
     }
     
     
-    public void writeConsoleln(String text,boolean userPrompt) {
+    public void writeConsoleln(String text) {
         JTextArea consoleTextArea = this.playerScreen.getConsoleTextArea();
-        if(userPrompt)
-            consoleTextArea.append("\n" + userConsolePrompt+ text);//adapting to avoid delete user prompt
+        if(text.isEmpty())
+            consoleTextArea.append("\n"+ userConsolePrompt  );//adapting to avoid delete user prompt
         else
             consoleTextArea.append("\n\n Message: " + text+ "\n\n" + userConsolePrompt);
         consoleTextArea.setCaretPosition(consoleTextArea.getDocument().getLength());
@@ -111,21 +111,22 @@ public class Controller  {
 
                 consoleLastPrintedPosition = fullText.length();
 
-                 if (command.startsWith(userConsolePrompt)) 
-                    command = command.substring(userConsolePrompt.length()).trim();
+                if (command.startsWith(userConsolePrompt)) //delete prompt to server
+                   command = command.substring(userConsolePrompt.length()).trim();
  
-                System.out.println(command);
-                if (!command.isEmpty()) 
+                if (!command.isEmpty() && !command.equals("clear"))
                     sendCommandToServer(command); 
-
-                writeConsoleln("", true);
+                else if(command.equals("clear"))//cleaning the screen
+                    consoleTextArea.setText("");
+                
+                writeConsoleln("");
             }
 
             private void sendCommandToServer(String command) {
                 try {
                     playerData.out.writeUTF(command); 
                 } catch (IOException ex) {
-                    writeConsoleln("The command \"" + command + "\" was not sent due to an error.",false);
+                    writeConsoleln("The command \"" + command + "\" was not sent due to an error.");
                 }
             }
         });
