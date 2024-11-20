@@ -52,26 +52,23 @@ public class Controller  {
         this.playerScreen.setVisible(true);
     }
     
-    private void addClickListener(JLabel label) {
+    private void addClickListener(JLabel label) {//adding listener to the cards
         label.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                System.out.println("Clicked on ");
+                writeConsoleln("Clicked on "+e.getClass().getName());
             }
         });
     }
     
-    private void setCards(){
-        
+    private void setCards(){//temp function
         this.playerScreen.getCard1Label().setIcon(LoadImage.loadImageAdjusted("/cards//Back.jpg", CART_WIDTH, CART_HEIGHT));
         this.playerScreen.getCard2Label().setIcon(LoadImage.loadImageAdjusted("/cards//Back.jpg", CART_WIDTH, CART_HEIGHT));
         this.playerScreen.getCard3Label().setIcon(LoadImage.loadImageAdjusted("/cards//Pandemonium.png", CART_WIDTH, CART_HEIGHT));
         this.playerScreen.getCard4Label().setIcon(LoadImage.loadImageAdjusted("/cards//Pandemonium.png", CART_WIDTH, CART_HEIGHT));
-    
-    
+
     }
-    
-    
+   
     public void writeConsoleln(String text) {
         JTextArea consoleTextArea = this.playerScreen.getConsoleTextArea();
         if(text.isEmpty())
