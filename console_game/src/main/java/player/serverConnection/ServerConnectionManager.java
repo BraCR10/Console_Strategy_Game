@@ -21,49 +21,38 @@ public class ServerConnectionManager {
     private final int GAME_PORT = 123;
     protected Socket socketPlayerGame;
     
-    private final int CHAT_PORT = 3006;
+    private final int CHAT_PORT = 3000;
     protected Socket socketPlayerChat;
     
-    protected DataInputStream in;
-    protected DataOutputStream out;
-    protected ObjectOutputStream outObj;
+    public DataInputStream in;
+    public DataOutputStream out;
+    public ObjectOutputStream outObj;
     
-    //Character data
-    private String playerName; 
-    private int playerID; 
-    
+    public String namePlayer;
     //tread player
     ThreadPlayerGame thread;
     
     
-    public ServerConnectionManager(){}
+    
+    public ServerConnectionManager(){
+        //temp
+        namePlayer="Juan";
+    }
     
 
     //For chat services
-    public void connectChat(Controller controller) {
-         try {
+    public void connectChat(Controller controller) throws IOException  {
             socketPlayerChat = new Socket("localhost", CHAT_PORT);
             outObj = new ObjectOutputStream(socketPlayerChat.getOutputStream());
             out = new DataOutputStream(socketPlayerChat.getOutputStream());
             ThreadPlayerChat t = new ThreadPlayerChat(this.socketPlayerChat,controller);
             t.start();
-         } catch (IOException ex) {
-            System.out.println("Sorry the chat is down!!!! [ServerConnectionManager.java -> connectChat(Controller)] ");
-         }
-
-
     }
     //For game services
-    public void connectGame(Controller controller) {
-         try {
+    public void connectGame(Controller controller) throws IOException {
             this.socketPlayerGame = new Socket("localhost", GAME_PORT);
             this.out = new DataOutputStream(socketPlayerGame.getOutputStream());
             this.in = new DataInputStream(socketPlayerGame.getInputStream());
-         } catch (IOException ex) {
-             System.out.println("Sorry the server is down!!!! [ServerConnectionManager.java -> connectGame(Controller)]");
-         }
-
-
     }
 
     public Socket getSocketPlayerChat() {

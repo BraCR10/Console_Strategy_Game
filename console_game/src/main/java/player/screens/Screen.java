@@ -23,7 +23,12 @@ public class Screen extends javax.swing.JFrame {
         this.setVisible(false);
         for (int i = 0; i < 4; i++)tableLastAttackReceived.setValueAt("", i, 0);
         for (int i = 0; i < 10; i++)tableRankings.setValueAt(String.valueOf(i+1), i, 0);
-        
+        this.tableAgainst.getTableHeader().setReorderingAllowed(false);
+        this.tableCardStats.getTableHeader().setReorderingAllowed(false);
+        this.tableLastAttackReceived.getTableHeader().setReorderingAllowed(false);
+        this.tableLastAttackSent.getTableHeader().setReorderingAllowed(false);
+        this.tableMyStatus.getTableHeader().setReorderingAllowed(false);
+        this.tableRankings.getTableHeader().setReorderingAllowed(false);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -104,6 +109,7 @@ public class Screen extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableAgainst.setUpdateSelectionOnSort(false);
         jScrollPane2.setViewportView(tableAgainst);
         if (tableAgainst.getColumnModel().getColumnCount() > 0) {
             tableAgainst.getColumnModel().getColumn(0).setResizable(false);
@@ -135,6 +141,10 @@ public class Screen extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableRankings.setEnabled(false);
+        tableRankings.setInheritsPopupMenu(true);
+        tableRankings.setUpdateSelectionOnSort(false);
+        tableRankings.setVerifyInputWhenFocusTarget(false);
         jScrollPane3.setViewportView(tableRankings);
         if (tableRankings.getColumnModel().getColumnCount() > 0) {
             tableRankings.getColumnModel().getColumn(0).setResizable(false);
@@ -161,6 +171,7 @@ public class Screen extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableMyStatus.setUpdateSelectionOnSort(false);
         jScrollPane4.setViewportView(tableMyStatus);
         if (tableMyStatus.getColumnModel().getColumnCount() > 0) {
             tableMyStatus.getColumnModel().getColumn(0).setResizable(false);
@@ -198,7 +209,6 @@ public class Screen extends javax.swing.JFrame {
 
         consoleLabel.setText("Console");
 
-        consoleTextArea.setEditable(false);
         consoleTextArea.setColumns(20);
         consoleTextArea.setRows(5);
         jScrollPane1.setViewportView(consoleTextArea);
@@ -483,7 +493,7 @@ public class Screen extends javax.swing.JFrame {
                 .addGroup(chatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(chatPanelLayout.createSequentialGroup()
                         .addComponent(chatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 137, Short.MAX_VALUE))
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addComponent(jScrollPane8))
                 .addContainerGap())
         );
