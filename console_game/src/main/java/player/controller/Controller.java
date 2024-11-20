@@ -8,12 +8,12 @@ import java.io.IOException;
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import player.screens.Screen;
-import player.serverConnection.ServerConnectionManager;
+import player.serverConnection.PlayerConnectionManager;
 import utils.LoadImage;
 
 public class Controller  {
     private Screen playerScreen;
-    private ServerConnectionManager playerData;
+    private PlayerConnectionManager playerData;
     
     //console variables
     private int consoleLastPrintedPosition = 0;//to collect the current command int the text area 
@@ -23,7 +23,7 @@ public class Controller  {
     private final int CART_WIDTH=120;
     private final int CART_HEIGHT=200;
 
-    public Controller(Screen playerScreen, ServerConnectionManager data) {
+    public Controller(Screen playerScreen, PlayerConnectionManager data) {
         this.playerScreen = playerScreen;
         this.playerData = data;
         this.userConsolePrompt= data.namePlayer+"$ ";

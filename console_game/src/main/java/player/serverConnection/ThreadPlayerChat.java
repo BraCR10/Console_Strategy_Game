@@ -4,6 +4,7 @@
  */
 package player.serverConnection;
 
+import utils.Message;
 import player.controller.Controller;
 import java.io.IOException;
 import java.io.ObjectInputStream;

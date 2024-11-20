@@ -5,7 +5,7 @@ import Warriors.Warrior;
 import java.util.ArrayList;
 import player.controller.Controller;
 import player.screens.Screen;
-import player.serverConnection.ServerConnectionManager;
+import player.serverConnection.PlayerConnectionManager;
 
 public class GameClient {
        
@@ -20,7 +20,7 @@ public class GameClient {
         
         warriors = new ArrayList<>();
                  
-        screenController = new Controller(new Screen(),new ServerConnectionManager());
+        screenController = new Controller(new Screen(),new PlayerConnectionManager());
         screenController.showScreen();
 
     }

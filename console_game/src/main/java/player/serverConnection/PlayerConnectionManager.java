@@ -15,7 +15,7 @@ import java.net.Socket;
  *
  * @author Brian Ramirez
  */
-public class ServerConnectionManager {
+public class PlayerConnectionManager {
     //Server
     
     private final int GAME_PORT = 123;
@@ -34,7 +34,7 @@ public class ServerConnectionManager {
     
     
     
-    public ServerConnectionManager(){
+    public PlayerConnectionManager(){
         //temp
         namePlayer="Juan";
     }
