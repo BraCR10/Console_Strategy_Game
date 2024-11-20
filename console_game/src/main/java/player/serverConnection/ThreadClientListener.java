@@ -4,29 +4,32 @@
  */
 package player.serverConnection;
 
-import utils.Message;
-import player.controller.Controller;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import player.controller.ClientController;
+import utils.Message;
 
-
-public class ThreadPlayerChat extends Thread{
+/**
+ *
+ * @author Brian Ramirez
+ */
+public class ThreadClientListener extends Thread{
     private boolean isRunning;
     private Socket socket;
-    private Controller controller;
+    private ClientController controller;
     private ObjectInputStream input;
 
-    public ThreadPlayerChat(Socket socket, Controller controller) {
+    public ThreadClientListener(Socket socket, ClientController controller) {
         this.socket = socket;
         this.controller = controller;
         isRunning=true;
         try {
             input=new ObjectInputStream(socket.getInputStream());
         } catch (IOException ex) {
-            Logger.getLogger(ThreadPlayerChat.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ThreadClientListener.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -41,15 +44,12 @@ public class ThreadPlayerChat extends Thread{
                         +"----------------------------------------------------------------------------"
                         +"\n"+msg.toString());
             } catch (IOException ex) {
-                Logger.getLogger(ThreadPlayerChat.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ThreadClientListener.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(ThreadPlayerChat.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(ThreadClientListener.class.getName()).log(Level.SEVERE, null, ex);
             }
                 
             
         }
     }
-    
-    
-    
 }

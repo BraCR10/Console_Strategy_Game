@@ -4,7 +4,7 @@
  */
 package player.serverConnection;
 
-import player.controller.Controller;
+import player.controller.ClientController;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -15,49 +15,35 @@ import java.net.Socket;
  *
  * @author Brian Ramirez
  */
-public class PlayerConnectionManager {
+public class ClientConnectionManager {
     //Server
     
     private final int GAME_PORT = 123;
     protected Socket socketPlayerGame;
     
-    private final int CHAT_PORT = 3000;
-    protected Socket socketPlayerChat;
     
     public DataInputStream in;
     public DataOutputStream out;
     public ObjectOutputStream outObj;
     
-    public String namePlayer;
+    public String playerID;
     //tread player
-    ThreadPlayerGame thread;
+    ThreadClientListener thread;
     
     
     
-    public PlayerConnectionManager(){
+    public ClientConnectionManager(){
         //temp
-        namePlayer="Juan";
+        playerID="Juan";
     }
     
-
-    //For chat services
-    public void connectChat(Controller controller) throws IOException  {
-            socketPlayerChat = new Socket("localhost", CHAT_PORT);
-            outObj = new ObjectOutputStream(socketPlayerChat.getOutputStream());
-            out = new DataOutputStream(socketPlayerChat.getOutputStream());
-            ThreadPlayerChat t = new ThreadPlayerChat(this.socketPlayerChat,controller);
-            t.start();
-    }
     //For game services
-    public void connectGame(Controller controller) throws IOException {
+    public void connectGame(ClientController controller) throws IOException {
             this.socketPlayerGame = new Socket("localhost", GAME_PORT);
             this.out = new DataOutputStream(socketPlayerGame.getOutputStream());
             this.in = new DataInputStream(socketPlayerGame.getInputStream());
     }
 
-    public Socket getSocketPlayerChat() {
-        return socketPlayerChat;
-    }
 
     public Socket getPlayerConnection() {
         return socketPlayerGame;

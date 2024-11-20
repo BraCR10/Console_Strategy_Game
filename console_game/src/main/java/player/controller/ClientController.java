@@ -7,13 +7,13 @@ import java.io.IOException;
 
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
-import player.screens.Screen;
-import player.serverConnection.PlayerConnectionManager;
+import player.screens.ClientGameScreen;
+import player.serverConnection.ClientConnectionManager;
 import utils.LoadImage;
 
-public class Controller  {
-    private Screen playerScreen;
-    private PlayerConnectionManager playerData;
+public class ClientController  {
+    private ClientGameScreen playerScreen;
+    private ClientConnectionManager playerData;
     
     //console variables
     private int consoleLastPrintedPosition = 0;//to collect the current command int the text area 
@@ -23,15 +23,15 @@ public class Controller  {
     private final int CART_WIDTH=120;
     private final int CART_HEIGHT=200;
 
-    public Controller(Screen playerScreen, PlayerConnectionManager data) {
+    public ClientController(ClientGameScreen playerScreen, ClientConnectionManager data) {
         this.playerScreen = playerScreen;
         this.playerData = data;
-        this.userConsolePrompt= data.namePlayer+"$ ";
+        this.userConsolePrompt= data.playerID+"$ ";
         init();
     }
     private void init() {
         playerScreen.setTitle("Console Game");
-        this.writeConsoleln("Console initialized | User: "+this.playerData.namePlayer);//first prompt
+        this.writeConsoleln("Console initialized | User: "+this.playerData.playerID);//first prompt
         addClickListener(playerScreen.getCard1Label());
         addClickListener(playerScreen.getCard2Label());
         addClickListener(playerScreen.getCard3Label());
@@ -39,13 +39,12 @@ public class Controller  {
         
         
         try {
-            this.playerData.connectChat(this);
             this.playerData.connectGame(this);
         } catch (IOException ex) {
             writeConsoleln("Sorry the server is down!!!! [ServerConnectionManager.java -> connectGame(Controller)]");        }
         
         setCards();
-        addEnterKeyListenerConsole();
+        addKeyListenerConsole();
         }
     
     public void showScreen(){
@@ -79,7 +78,7 @@ public class Controller  {
         consoleLastPrintedPosition = consoleTextArea.getText().length(); 
     }
 
-    private void addEnterKeyListenerConsole() {
+    private void addKeyListenerConsole() {
         JTextArea consoleTextArea = this.playerScreen.getConsoleTextArea();
 
         consoleTextArea.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -129,7 +128,7 @@ public class Controller  {
         });
     }
     
-    public Screen getPlayerScreen() {
+    public ClientGameScreen getPlayerScreen() {
         return playerScreen;
     }
     

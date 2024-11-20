@@ -13,12 +13,12 @@ import javax.swing.JTextField;
  *
  * @author Brian Ramirez
  */
-public class Screen extends javax.swing.JFrame {
+public class ClientGameScreen extends javax.swing.JFrame {
 
     /**
      * Creates new form Screen
      */
-    public Screen() {
+    public ClientGameScreen() {
         initComponents();
         this.setVisible(false);
         for (int i = 0; i < 4; i++)tableLastAttackReceived.setValueAt("", i, 0);
