@@ -20,7 +20,6 @@ import java.util.ArrayList;
  */
 public class ClientConnectionManager {
     //Server
-    
     private final int GAME_PORT = 123;
     protected Socket socketPlayerGame;
     
@@ -31,8 +30,9 @@ public class ClientConnectionManager {
     
     //Todo: define how to get this data
     public String playerID;
+    public StrategyTimer timer;
     public ArrayList<Warrior> warriors;
-    StrategyTimer timer;
+    
     
     //tread player
     ThreadClientListener thread;
@@ -40,18 +40,16 @@ public class ClientConnectionManager {
     
     
     public ClientConnectionManager(){
-        //temp
-        playerID="Juan";
-        this.warriors=new ArrayList<>();
+        this.warriors = new ArrayList<>();
+        this.playerID = "";
     }
     
     //For game services
     public void connectGame(ClientController controller) throws IOException {
-            this.socketPlayerGame = new Socket("localhost", GAME_PORT);
-            this.out = new DataOutputStream(socketPlayerGame.getOutputStream());
-            this.in = new DataInputStream(socketPlayerGame.getInputStream());
-            this.inObj= new ObjectInputStream(socketPlayerGame.getInputStream());
-            
+        this.socketPlayerGame = new Socket("localhost", GAME_PORT);
+        this.out = new DataOutputStream(socketPlayerGame.getOutputStream());
+        this.in = new DataInputStream(socketPlayerGame.getInputStream());
+        this.inObj= new ObjectInputStream(socketPlayerGame.getInputStream());            
     }
 
 

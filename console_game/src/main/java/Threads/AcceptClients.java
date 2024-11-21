@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 
 public class AcceptClients extends Thread {
+    
     GameServer server;
 
     public AcceptClients(GameServer server) {

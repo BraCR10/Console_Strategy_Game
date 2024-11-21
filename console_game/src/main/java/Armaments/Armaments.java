@@ -2,9 +2,10 @@ package Armaments;
 
 import java.util.HashMap;
 import Affinities.Affinities;
+import java.io.Serializable;
 import java.util.Random;
 
-public abstract class Armaments {
+public abstract class Armaments implements Serializable{
     
     private String name;
     private boolean CanBeUsed;

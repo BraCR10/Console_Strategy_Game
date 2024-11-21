@@ -1,5 +1,7 @@
 package Player.Controller;
 
+import Commands.CommandManager;
+import Commands.ICommand;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
@@ -12,26 +14,34 @@ import Player.ServerConnections.ClientConnectionManager;
 import Utils.LoadImage;
  
 public class ClientController  {
-    private ClientGameScreen playerScreen;
-    private ClientConnectionManager playerData;
+    public ClientGameScreen playerScreen;
+    public ClientConnectionManager playerData;
     
     //console variables
     private int consoleLastPrintedPosition = 0;//to collect the current command int the text area 
-    private String userConsolePrompt;//a user in the console
+    private String userConsolePrompt = "";//a user in the console
     
     //screen settings
     private final int CART_WIDTH=120;
     private final int CART_HEIGHT=200;
+    private CommandManager manager;
 
     public ClientController(ClientGameScreen playerScreen, ClientConnectionManager data) {
         this.playerScreen = playerScreen;
         this.playerData = data;
-        this.userConsolePrompt= data.playerID+"$ ";
+        this.userConsolePrompt = playerData.playerID+"$ ";
+        this.manager = new CommandManager();
         init();
     }
+    
+    public void SetuserConsolePrompt(String str){
+        this.userConsolePrompt = str+"$ ";
+    }
+    
     private void init() {
         playerScreen.setTitle("Console Game");
-        this.writeConsoleln("Console initialized | User: "+this.playerData.playerID);//first prompt
+        this.writeConsoleln("Console initialized | Enter your ID and Cards : ");//first prompt
+        
         addClickListener(playerScreen.getCard1Label());
         addClickListener(playerScreen.getCard2Label());
         addClickListener(playerScreen.getCard3Label());
@@ -44,8 +54,10 @@ public class ClientController  {
             writeConsoleln("Sorry the server is down!!!! [ServerConnectionManager.java -> connectGame(Controller)]");        }
         
         setCards();
+    
         addKeyListenerConsole();
-        }
+    
+    }
     
     public void showScreen(){
         this.playerScreen.setVisible(true);
@@ -63,15 +75,15 @@ public class ClientController  {
     private void setCards(){//temp function
         this.playerScreen.getCard1Label().setIcon(LoadImage.loadImageAdjusted("/cards//Back.jpg", CART_WIDTH, CART_HEIGHT));
         this.playerScreen.getCard2Label().setIcon(LoadImage.loadImageAdjusted("/cards//Back.jpg", CART_WIDTH, CART_HEIGHT));
-        this.playerScreen.getCard3Label().setIcon(LoadImage.loadImageAdjusted("/cards//Pandemonium.png", CART_WIDTH, CART_HEIGHT));
-        this.playerScreen.getCard4Label().setIcon(LoadImage.loadImageAdjusted("/cards//Pandemonium.png", CART_WIDTH, CART_HEIGHT));
-
+        this.playerScreen.getCard3Label().setIcon(LoadImage.loadImageAdjusted("/cards//Back.jpg", CART_WIDTH,CART_HEIGHT));
+        this.playerScreen.getCard4Label().setIcon(LoadImage.loadImageAdjusted("/cards//Back.jpg", CART_WIDTH, CART_HEIGHT));
     }
    
     public void writeConsoleln(String text) {
         JTextArea consoleTextArea = this.playerScreen.getConsoleTextArea();
+        
         if(text.isEmpty())
-            consoleTextArea.append("\n"+ userConsolePrompt  );//adapting to avoid delete user prompt
+            consoleTextArea.append("\n"+ userConsolePrompt);//adapting to avoid delete user prompt
         else
             consoleTextArea.append("\n\n Message: " + text+ "\n\n" + userConsolePrompt);
         consoleTextArea.setCaretPosition(consoleTextArea.getDocument().getLength());
@@ -112,6 +124,7 @@ public class ClientController  {
  
                 if (!command.isEmpty() && !command.equals("clear"))
                     sendCommandToServer(command); 
+
                 else if(command.equals("clear"))//cleaning the screen
                     consoleTextArea.setText("");
                 
@@ -120,7 +133,8 @@ public class ClientController  {
 
             private void sendCommandToServer(String command) {
                 try {
-                    playerData.out.writeUTF(command); 
+                    playerData.out.writeUTF(command);
+                    selectCommmand(command);
                 } catch (IOException ex) {
                     writeConsoleln("The command \"" + command + "\" was not sent due to an error.");
                 }
@@ -130,6 +144,17 @@ public class ClientController  {
     
     public ClientGameScreen getPlayerScreen() {
         return playerScreen;
+    }
+    
+    private void selectCommmand(String arg){
+        
+        String[] Args = arg.split("-");
+        String MainArg = Args[0].toLowerCase();
+                        
+        ICommand command = manager.getCommand(MainArg);   
+        command.execute(Args, this);
+       
+        
     }
     
     

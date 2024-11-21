@@ -1,12 +1,14 @@
 package Commands;
 
-public class Attack implements ICommand{
+import Player.Controller.ClientController;
 
+public class Attack implements ICommand{
+    public static final String COMMAN_NAME = "atk";
+    
     @Override
-    public void execute(String[] arg) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    public void execute(String[] arg, ClientController client) {
+        //TO DO : ----------------------------------------------
     }
-    
-    
+
     
 }

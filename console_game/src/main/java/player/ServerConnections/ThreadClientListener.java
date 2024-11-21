@@ -42,7 +42,7 @@ public class ThreadClientListener extends Thread{
             try {
                 command = (ICommand) input.readObject();
                 ARGS=(String[]) input.readObject();
-                command.execute(ARGS);
+                command.execute(ARGS, controller);
             } catch (IOException ex) {
                 Logger.getLogger(ThreadClientListener.class.getName()).log(Level.SEVERE, null, ex);
             } catch (ClassNotFoundException ex) {

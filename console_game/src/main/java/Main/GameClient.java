@@ -6,9 +6,6 @@ import Player.Screens.ClientGameScreen;
 import Player.ServerConnections.ClientConnectionManager;
 
 public class GameClient {
-       
-    
-    
     ClientController screenController;
     
     

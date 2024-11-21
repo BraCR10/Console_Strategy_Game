@@ -1,43 +1,36 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Commands;
 
 import java.util.HashMap;
 
 public class CommandManager {    
-    //hash de ICommands: name, command
-    private static final HashMap<String, Class<? extends ICommand>> COMMANDS = new HashMap<>();       
+    private static final HashMap<String, ICommand> COMMANDS = new HashMap<>();       
     
     public CommandManager() {           
-       //registCommand(EchoCommand.COMMAN_NAME, EchoCommand.class);           
-        
+       registCommand(SetID.COMMAN_NAME, new SetID());
+       registCommand(CreatWarrior.COMMAN_NAME, new CreatWarrior());
     }       
-    /*
+    
+    
     public ICommand getCommand(String commandName) {           
-        if (COMMANDS.containsKey(commandName.toUpperCase())) {               
-            try {   
-                  
-                return COMMANDS.get(commandName.toUpperCase()).newInstance();
-            } catch (Exception e) {   
+        if (COMMANDS.containsKey(commandName.toLowerCase())) { 
+ 
+            try {return COMMANDS.get(commandName.toLowerCase());} 
+            
+            catch (Exception e) {   
                 e.printStackTrace();  
                 //retorna comando de error en la exception
                 //return new ErrorCommand();  
                 return null; 
             }           
         } 
-        else {
-            // retorno de error comando no encontrado
-            //return new NotFoundCommand();   
-            return null;   
-        }   
-    }*/
+        
+        else {return new NotFoundCommand();}   
+    }
 
-    // to add a command
-    public void registCommand(String commandName, Class<? extends ICommand> command) {   
-        COMMANDS.put(commandName.toUpperCase(), command);   
+
+    public void registCommand(String commandName, ICommand command) {   
+        COMMANDS.put(commandName.toLowerCase(), command);  
+        
     }   
 }
 

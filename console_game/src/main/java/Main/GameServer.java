@@ -1,34 +1,41 @@
 package Main;
 
 import Threads.AcceptClients;
+import Threads.PlayersThread;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 import Utils.Message;
 
+
 public class GameServer {
     ServerSocket server;
     ArrayList<ClientHandler> players;
-    
-    
-    
-    
     
     public GameServer() throws IOException {
         System.out.println("--------------------[LOADING NEW GAME]--------------------");
         
         server = new ServerSocket(123); 
         players = new ArrayList<>();
+        
         new AcceptClients(this).start();
- 
     }
 
     public void AcceptPlayers() throws IOException{
-        players.add(new ClientHandler(server.accept()));
+        
+        ClientHandler client = new ClientHandler(server.accept());
+        players.add(client);
+
+        client.thread = new PlayersThread(this, client);
+        client.thread.start();
+        
         System.out.println("NEW PLAYER ACCEPTED !!!!");
-    }
+    }    
+
+    
      //Currently i am using main server
      //BroadCoast funtion for chat
+    
      public void broadCoast(Message msj){
         
         for (ClientHandler player : players) {
@@ -40,6 +47,7 @@ public class GameServer {
         }
     
     }
+     
      public void privateMsg(Message msg){
         
         for (ClientHandler player : players) {
@@ -52,5 +60,6 @@ public class GameServer {
         }
     
     }
+     
     public static void main(String[] args) throws IOException { new GameServer(); }
 }

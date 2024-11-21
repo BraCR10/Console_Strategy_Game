@@ -2,10 +2,8 @@ package Armaments;
 
 public class ArmFactory {
     
-    public Armaments ArmFactory(String str){
-        if (str == null) {
-            return null;
-        }
+    public static Armaments ArmFactory(String str){
+        if (str == null) { return null; }
         return switch (str.toLowerCase()) {
             case "axe" -> new Axe();
             case "bow" -> new Bow();
