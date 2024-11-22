@@ -5,12 +5,12 @@ import Affinities.Affinities;
 import java.io.Serializable;
 import java.util.Random;
 
-public abstract class Armaments implements Serializable{
+public class Armaments implements Serializable{
     
     private String name;
-    private boolean CanBeUsed;
+    public boolean CanBeUsed;
         
-    private HashMap<Affinities, Integer> Affinity = new HashMap<>();
+    private HashMap<Affinities, Integer> affinity = new HashMap<>();
 
     private final int min = 20;
     private final int max = 100;
@@ -22,20 +22,29 @@ public abstract class Armaments implements Serializable{
         
     }
 
-    public int getDamage(Affinities Affinity){
-        return this.Affinity.get(Affinity);
-    }
-    
     private void SetRandomDamage(){      
         Random random = new Random();
         int randomNum;
                 
         for (Affinities element : Affinities.values()){
            randomNum = random.nextInt(max + min) + min;
-           Affinity.put(element, randomNum);
+           affinity.put(element, randomNum);
         }
     }
+
     
+    
+    public String getName() {
+        return name;
+    }
+
+    public int getDamage(Affinities Affinity){
+        return this.affinity.get(Affinity);
+    }    
+    
+    public HashMap<Affinities, Integer> getAffinity() {
+        return affinity;
+    }
     
     
 }

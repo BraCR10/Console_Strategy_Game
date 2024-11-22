@@ -2,8 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Player.Screens;
+package Screens;
 
+import Affinities.Affinities;
+import Affinities.Affinity;
+import Warriors.Warrior;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -78,7 +81,7 @@ public class ClientGameScreen extends javax.swing.JFrame {
         card4AvgTextField = new javax.swing.JTextField();
         jScrollPane9 = new javax.swing.JScrollPane();
         tableCardStats = new javax.swing.JTable();
-        cardPomptTextField = new javax.swing.JTextField();
+        card1PomptTextField = new javax.swing.JTextField();
         chatPanel = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
         chatBoxTextArea = new javax.swing.JTextArea();
@@ -418,19 +421,25 @@ public class ClientGameScreen extends javax.swing.JFrame {
 
         tableCardStats.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"", null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Ability", "", "", "", "", "", "", "", "", ""
+                "Ability", "AIR", "WATER", "EARTH", "FIRE", "STEEL", "ICE", "POISON", "LIGHTNING", "DARK", "HOLY"
             }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false, false
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false, false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
@@ -450,7 +459,9 @@ public class ClientGameScreen extends javax.swing.JFrame {
             tableCardStats.getColumnModel().getColumn(9).setResizable(false);
         }
 
-        cardPomptTextField.setEditable(false);
+        card1PomptTextField.setEditable(false);
+        card1PomptTextField.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        card1PomptTextField.setHorizontalAlignment(javax.swing.JTextField.CENTER);
 
         javax.swing.GroupLayout rightPanelLayout = new javax.swing.GroupLayout(rightPanel);
         rightPanel.setLayout(rightPanelLayout);
@@ -459,7 +470,7 @@ public class ClientGameScreen extends javax.swing.JFrame {
             .addGroup(rightPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(rightPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(cardPomptTextField)
+                    .addComponent(card1PomptTextField)
                     .addComponent(yourCardsLabel)
                     .addComponent(cardsPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane9))
@@ -473,7 +484,7 @@ public class ClientGameScreen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cardsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cardPomptTextField)
+                .addComponent(card1PomptTextField)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -560,13 +571,13 @@ public class ClientGameScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField card1AvgTextField;
     private javax.swing.JLabel card1Label;
+    private javax.swing.JTextField card1PomptTextField;
     private javax.swing.JTextField card2AvgTextField;
     private javax.swing.JLabel card2Label;
     private javax.swing.JTextField card3AvgTextField;
     private javax.swing.JLabel card3Label;
     private javax.swing.JTextField card4AvgTextField;
     private javax.swing.JLabel card4Label;
-    private javax.swing.JTextField cardPomptTextField;
     private javax.swing.JPanel cardsPanel;
     private javax.swing.JPanel centrePanel;
     private javax.swing.JTextArea chatBoxTextArea;
@@ -669,13 +680,19 @@ public class ClientGameScreen extends javax.swing.JFrame {
     }
 
     public JTextField getCardPomptTextField() {
-        return cardPomptTextField;
+        return card1PomptTextField;
     }
 
     public void setCardPomptTextField(JTextField cardPomptTextField) {
-        this.cardPomptTextField = cardPomptTextField;
+        this.card1PomptTextField = cardPomptTextField;
     }
 
+    public void setCardPomptTextField(Warrior data) {
+        String str = data.getName().toUpperCase()+" ["+data.getAffinity()+"]";
+        
+        this.card1PomptTextField.setText(str);
+    }
+    
     public JTextArea getConsoleTextArea() {
         return consoleTextArea;
     }
@@ -715,6 +732,21 @@ public class ClientGameScreen extends javax.swing.JFrame {
     public void setTableCardStats(JTable tableCardStats) {
         this.tableCardStats = tableCardStats;
     }
+    
+    public void setTableCardStats(Warrior data) {
+        for (int row = 0; row < 4; row++){            
+
+            this.tableCardStats.setValueAt(data.getWeaponsName(row), row, 0);
+            
+            for (int col = 1; col < 11; col++){
+                
+                Affinities A = Affinity.getAffinity(this.tableCardStats.getColumnName(col));
+                this.tableCardStats.setValueAt(data.getDamage(row, A), row, col);
+            
+            }
+        }
+    }
+    
 
     public JTable getTableLastAttackReceived() {
         return tableLastAttackReceived;
@@ -749,7 +781,7 @@ public class ClientGameScreen extends javax.swing.JFrame {
     }
 
 
-    
+   
     
     
 }

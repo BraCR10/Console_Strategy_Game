@@ -1,7 +1,9 @@
 package Strategy;
 
-import Main.GameClient;
+import Armaments.Armaments;
+import Main.ClientHandler;
+import Main.GameServer;
 
 public interface Strategy {
-    public void doStrategy(GameClient player);
+    public Armaments doStrategy(String[] Args, GameServer server, ClientHandler player);
 }

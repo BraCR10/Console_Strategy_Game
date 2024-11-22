@@ -1,17 +1,18 @@
+
 package Commands;
 
 import Controller.ClientController;
 
-
-public class NotFoundCommand implements ICommand {
+public class ErrorCommand implements ICommand {
 
     @Override
     public void execute(String[] arg, ClientController client) {
-        client.writeConsoleln("[ERROR] : NotFoundCommand...");
+        client.writeConsoleln("[ERROR] : error parameters/ arguments are invalid....");
     }
 
     @Override
     public String getSyntax() {
-        return "NotFoundCommand";
+        return "ErrorCommand";
     }
+    
 }

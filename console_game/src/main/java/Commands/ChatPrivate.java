@@ -1,16 +1,32 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Commands;
 
-import Utils.Message;
+import Controller.ClientController;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-/**
- *
- * @author Brian Ramirez
- */
-public class ChatPrivate {
-    Message msg;//Todo: convert the String msg sent by the user and build the Message msg
-                // then usen broadcoast or privateMsg functions in gameServe
+public class ChatPrivate implements ICommand{
+    public static final String COMMAN_NAME = "cpr";
+
+    @Override
+    public void execute(String[] arg, ClientController client) {
+        
+        try {
+            if (client.playerData.in.readBoolean()){             
+                client.writeConsoleln("[COMMAND] : ChatPrivate has been executed...");
+ 
+            } else {
+                client.writeConsoleln("[ERROR] : Error Receivers ID inexistent....");
+                
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(SetID.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
+    }
+
+    @Override
+    public String getSyntax() {
+        return COMMAN_NAME+"'Receiver'-Msg";
+    }
 }

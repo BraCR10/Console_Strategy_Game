@@ -5,32 +5,43 @@ import java.util.HashMap;
 public class CommandManager {    
     private static final HashMap<String, ICommand> COMMANDS = new HashMap<>();       
     
-    public CommandManager() {           
-       registCommand(SetID.COMMAN_NAME, new SetID());
+    public CommandManager() {        
+        
+       registCommand(Ask.COMMAN_NAME, new Ask());
+       registCommand(Attack.COMMAN_NAME, new Attack()); 
+        registCommand(ChatPrivate.COMMAN_NAME, new ChatPrivate());
+       
        registCommand(CreatWarrior.COMMAN_NAME, new CreatWarrior());
+       registCommand(PassTurn.COMMAN_NAME, new PassTurn());
+       registCommand(RechargeArmaments.COMMAN_NAME, new RechargeArmaments());
+       registCommand(SelectWarrior.COMMAN_NAME, new SelectWarrior());
+       registCommand(SetID.COMMAN_NAME, new SetID());
     }       
-    
-    
+
     public ICommand getCommand(String commandName) {           
         if (COMMANDS.containsKey(commandName.toLowerCase())) { 
- 
             try {return COMMANDS.get(commandName.toLowerCase());} 
-            
-            catch (Exception e) {   
-                e.printStackTrace();  
-                //retorna comando de error en la exception
-                //return new ErrorCommand();  
-                return null; 
+            catch (Exception e) {e.printStackTrace();return new ErrorCommand();  
             }           
-        } 
-        
-        else {return new NotFoundCommand();}   
+        } else {
+            return new NotFoundCommand();
+        }   
     }
 
-
-    public void registCommand(String commandName, ICommand command) {   
+    public static void registCommand(String commandName, ICommand command) {   
         COMMANDS.put(commandName.toLowerCase(), command);  
         
     }   
+    
+    public static String getCommandsSyntax(String arg){
+        String str = "";
+        
+        for (String key : COMMANDS.keySet()){
+            if (key.toLowerCase().equals(arg.toLowerCase())){
+            str = "["+key+"] : "+COMMANDS.get(key.toLowerCase()).getSyntax();}
+        }
+       
+        return str;
+    }
 }
 

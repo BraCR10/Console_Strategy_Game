@@ -1,15 +1,9 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Utils;
 
+import static Utils.Message.MessageType.PRIVATE;
+import static Utils.Message.MessageType.PUBLIC;
 import java.io.Serializable;
 
-/**
- *
- * @author Brian Ramirez
- */
 public class Message implements Serializable {
     
     public enum MessageType { 
@@ -28,6 +22,20 @@ public class Message implements Serializable {
         this.message = message;
         this.type = type;
     }
+    
+    public Message(String sender) {
+        this.senderID = sender;
+    }
+    
+    public void SetMSG(String str){
+        this.message = str;
+    }
+    
+    public void isPrivate(boolean Conditioin){
+        if(Conditioin){this.type = PRIVATE;}
+        else {this.type = PUBLIC;}
+    } 
+    
 
     public String getSender() {
         return senderID;

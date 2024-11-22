@@ -1,5 +1,6 @@
-package Player.Controller;
+package Controller;
 
+import Armaments.Armaments;
 import Commands.CommandManager;
 import Commands.ICommand;
 import java.awt.event.MouseAdapter;
@@ -9,13 +10,16 @@ import java.io.IOException;
 
 import javax.swing.JLabel;
 import javax.swing.JTextArea;
-import Player.Screens.ClientGameScreen;
-import Player.ServerConnections.ClientConnectionManager;
+import Screens.ClientGameScreen;
+import ServerConnections.ClientConnectionManager;
+import Threads.ReceiveDataFromServer;
 import Utils.LoadImage;
+import Warriors.Warrior;
  
 public class ClientController  {
     public ClientGameScreen playerScreen;
     public ClientConnectionManager playerData;
+    public Warrior WarriorSelected;
     
     //console variables
     private int consoleLastPrintedPosition = 0;//to collect the current command int the text area 
@@ -26,12 +30,16 @@ public class ClientController  {
     private final int CART_HEIGHT=200;
     private CommandManager manager;
 
+    ReceiveDataFromServer DataFromServer;
+    
     public ClientController(ClientGameScreen playerScreen, ClientConnectionManager data) {
         this.playerScreen = playerScreen;
         this.playerData = data;
         this.userConsolePrompt = playerData.playerID+"$ ";
         this.manager = new CommandManager();
         init();
+        
+        DataFromServer = new ReceiveDataFromServer(this);
     }
     
     public void SetuserConsolePrompt(String str){
@@ -63,6 +71,11 @@ public class ClientController  {
         this.playerScreen.setVisible(true);
     }
     
+    public void ReceiveDAMAGE(Armaments ARM){
+        this.playerData.ReceiveDAMAGE(ARM);
+        setCards();
+    }
+    
     private void addClickListener(JLabel label) {//adding listener to the cards
         label.addMouseListener(new MouseAdapter() {
             @Override
@@ -72,24 +85,65 @@ public class ClientController  {
         });
     }
     
-    private void setCards(){//temp function
-        this.playerScreen.getCard1Label().setIcon(LoadImage.loadImageAdjusted("/cards//Back.jpg", CART_WIDTH, CART_HEIGHT));
-        this.playerScreen.getCard2Label().setIcon(LoadImage.loadImageAdjusted("/cards//Back.jpg", CART_WIDTH, CART_HEIGHT));
-        this.playerScreen.getCard3Label().setIcon(LoadImage.loadImageAdjusted("/cards//Back.jpg", CART_WIDTH,CART_HEIGHT));
-        this.playerScreen.getCard4Label().setIcon(LoadImage.loadImageAdjusted("/cards//Back.jpg", CART_WIDTH, CART_HEIGHT));
+    public void setCards(){//temp function
+        String str = getCardName(0);
+        String hp = getCardHP(0);
+
+        this.playerScreen.getCard1Label().setIcon(LoadImage.loadImageAdjusted("/cards//"+str+".png", CART_WIDTH, CART_HEIGHT));
+        this.playerScreen.getCard1AvgTextField().setText(hp);
+        
+        str = getCardName(1);
+        hp = getCardHP(1);
+        this.playerScreen.getCard2Label().setIcon(LoadImage.loadImageAdjusted("/cards//"+str+".png", CART_WIDTH, CART_HEIGHT));
+        this.playerScreen.getCard2AvgTextField().setText(hp);
+        
+        str = getCardName(2);
+        hp = getCardHP(2);
+        this.playerScreen.getCard3Label().setIcon(LoadImage.loadImageAdjusted("/cards//"+str+".png", CART_WIDTH,CART_HEIGHT));
+        this.playerScreen.getCard3AvgTextField().setText(hp);
+        
+        str = getCardName(3);
+        hp = getCardHP(3);
+        this.playerScreen.getCard4Label().setIcon(LoadImage.loadImageAdjusted("/cards//"+str+".png", CART_WIDTH, CART_HEIGHT));
+        this.playerScreen.getCard4AvgTextField().setText(hp);
     }
    
+    private String getCardName(int index){
+        try {
+            return this.playerData.warriors.get(index).getName();
+        } catch (Exception e) {
+            return "back";
+        }
+    }
+
+    private String getCardHP(int index){
+        try {
+            return this.playerData.warriors.get(index).HP+"%";
+        } catch (Exception e) {
+            return "0%";
+        }
+    }
+    
+    public Warrior getWarrior(String name){
+        for(int i = 0; i < 4; i++){
+            if(name.toLowerCase() == null ? this.playerData.warriors.get(i).getName().toLowerCase() == null : name. toLowerCase().equals(this.playerData.warriors.get(i).getName().toLowerCase())){
+                return this.playerData.warriors.get(i);
+            }  
+        }
+        return null;
+    }   
+        
     public void writeConsoleln(String text) {
         JTextArea consoleTextArea = this.playerScreen.getConsoleTextArea();
         
         if(text.isEmpty())
             consoleTextArea.append("\n"+ userConsolePrompt);//adapting to avoid delete user prompt
         else
-            consoleTextArea.append("\n\n Message: " + text+ "\n\n" + userConsolePrompt);
+            consoleTextArea.append("\n [Message] : " + text + "\n"+userConsolePrompt);
         consoleTextArea.setCaretPosition(consoleTextArea.getDocument().getLength());
         consoleLastPrintedPosition = consoleTextArea.getText().length(); 
     }
-
+    
     private void addKeyListenerConsole() {
         JTextArea consoleTextArea = this.playerScreen.getConsoleTextArea();
 
@@ -147,13 +201,11 @@ public class ClientController  {
     }
     
     private void selectCommmand(String arg){
-        
         String[] Args = arg.split("-");
         String MainArg = Args[0].toLowerCase();
                         
         ICommand command = manager.getCommand(MainArg);   
         command.execute(Args, this);
-       
         
     }
     

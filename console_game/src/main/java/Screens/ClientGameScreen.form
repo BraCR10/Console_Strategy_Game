@@ -515,7 +515,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="cardPomptTextField" max="32767" attributes="0"/>
+                          <Component id="card1PomptTextField" max="32767" attributes="0"/>
                           <Component id="yourCardsLabel" min="-2" max="-2" attributes="0"/>
                           <Component id="cardsPanel" alignment="0" max="32767" attributes="0"/>
                           <Component id="jScrollPane9" alignment="0" max="32767" attributes="0"/>
@@ -532,7 +532,7 @@
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="cardsPanel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
-                      <Component id="cardPomptTextField" max="32767" attributes="0"/>
+                      <Component id="card1PomptTextField" max="32767" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jScrollPane9" min="-2" pref="110" max="-2" attributes="0"/>
                   </Group>
@@ -650,23 +650,18 @@
                 <Component class="javax.swing.JTable" name="tableCardStats">
                   <Properties>
                     <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-                      <Table columnCount="10" rowCount="5">
-                        <Column editable="false" title="Ability" type="java.lang.Object">
-                          <Data value=""/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                          <Data value="null"/>
-                        </Column>
-                        <Column editable="false" title="" type="java.lang.Object"/>
-                        <Column editable="false" title="" type="java.lang.Object"/>
-                        <Column editable="false" title="" type="java.lang.Object"/>
-                        <Column editable="false" title="" type="java.lang.Object"/>
-                        <Column editable="false" title="" type="java.lang.Object"/>
-                        <Column editable="false" title="" type="java.lang.Object"/>
-                        <Column editable="false" title="" type="java.lang.Object"/>
-                        <Column editable="false" title="" type="java.lang.Object"/>
-                        <Column editable="false" title="" type="java.lang.Object"/>
+                      <Table columnCount="11" rowCount="4">
+                        <Column editable="false" title="Ability" type="java.lang.String"/>
+                        <Column editable="false" title="AIR" type="java.lang.Integer"/>
+                        <Column editable="false" title="WATER" type="java.lang.Integer"/>
+                        <Column editable="false" title="EARTH" type="java.lang.Integer"/>
+                        <Column editable="false" title="FIRE" type="java.lang.Integer"/>
+                        <Column editable="false" title="STEEL" type="java.lang.Integer"/>
+                        <Column editable="false" title="ICE" type="java.lang.Integer"/>
+                        <Column editable="false" title="POISON" type="java.lang.Integer"/>
+                        <Column editable="false" title="LIGHTNING" type="java.lang.Integer"/>
+                        <Column editable="false" title="DARK" type="java.lang.Integer"/>
+                        <Column editable="false" title="HOLY" type="java.lang.Integer"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
@@ -730,9 +725,13 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JTextField" name="cardPomptTextField">
+            <Component class="javax.swing.JTextField" name="card1PomptTextField">
               <Properties>
                 <Property name="editable" type="boolean" value="false"/>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Segoe UI" size="18" style="0"/>
+                </Property>
+                <Property name="horizontalAlignment" type="int" value="0"/>
               </Properties>
             </Component>
           </SubComponents>

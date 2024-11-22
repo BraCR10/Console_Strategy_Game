@@ -1,9 +1,9 @@
 package Main;
 
 
-import Player.Controller.ClientController;
-import Player.Screens.ClientGameScreen;
-import Player.ServerConnections.ClientConnectionManager;
+import Controller.ClientController;
+import Screens.ClientGameScreen;
+import ServerConnections.ClientConnectionManager;
 
 public class GameClient {
     ClientController screenController;

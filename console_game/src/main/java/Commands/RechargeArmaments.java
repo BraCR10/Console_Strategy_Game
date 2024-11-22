@@ -5,20 +5,20 @@ import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Attack implements ICommand{
-    public static final String COMMAN_NAME = "atk";
+public class RechargeArmaments implements ICommand{
+    public static final String COMMAN_NAME = "ra";
     
     
     @Override
     public void execute(String[] arg, ClientController client) {
         try {
-
             
-            if(client.playerData.in.readBoolean()){
-                client.writeConsoleln("[YOU ATTACKED --> ("+arg[1]+")] ");}
+            boolean MyTurn = client.playerData.in.readBoolean();
+            if(MyTurn){
+                client.playerData.RA();
+                client.writeConsoleln("YOU've recharged ALL your weapons...");}
             
-            else {
-                client.writeConsoleln(client.playerData.in.readUTF());}
+            else {client.writeConsoleln("[ERROR] : Cant recharge your weapons...");}
         
         
         
@@ -26,14 +26,11 @@ public class Attack implements ICommand{
             Logger.getLogger(Attack.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        
-        
+
     }
 
     @Override
     public String getSyntax() {
-        return COMMAN_NAME+"-'Opponent'-'Warrior'-'Weapon'-'Strategy'";
-    }
-
-    
+        return COMMAN_NAME;
+    }    
 }

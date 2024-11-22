@@ -10,20 +10,28 @@ import Utils.Message;
 
 public class GameServer {
     ServerSocket server;
-    ArrayList<ClientHandler> players;
+    ServerSocket serverCONNECTIONS;
+   
+    int playerTurn = 0;
+    public ArrayList<ClientHandler> players;
     
     public GameServer() throws IOException {
         System.out.println("--------------------[LOADING NEW GAME]--------------------");
         
         server = new ServerSocket(123); 
+        serverCONNECTIONS = new ServerSocket(124);
+        
         players = new ArrayList<>();
         
         new AcceptClients(this).start();
     }
 
     public void AcceptPlayers() throws IOException{
-        
         ClientHandler client = new ClientHandler(server.accept());
+        
+        client.setSerialCommunication(serverCONNECTIONS.accept());
+        
+        if(players.isEmpty()){client.IsMyTurn = true;}
         players.add(client);
 
         client.thread = new PlayersThread(this, client);
@@ -32,11 +40,8 @@ public class GameServer {
         System.out.println("NEW PLAYER ACCEPTED !!!!");
     }    
 
-    
-     //Currently i am using main server
-     //BroadCoast funtion for chat
-    
-     public void broadCoast(Message msj){
+
+    public void broadCoast(Message msj){
         
         for (ClientHandler player : players) {
             try {
@@ -48,7 +53,8 @@ public class GameServer {
     
     }
      
-     public void privateMsg(Message msg){
+  
+    public void privateMsg(Message msg){
         
         for (ClientHandler player : players) {
             try {
@@ -60,6 +66,23 @@ public class GameServer {
         }
     
     }
-     
+    
+    public ClientHandler getClient(String ID){
+        for(ClientHandler player : players){
+            if(ID == null ? player.ID == null : ID.equals(player.ID)){return player;}
+        }
+        return null;
+    }
+    
+    public void PassTurn(){
+        playerTurn++;
+        if (playerTurn >= players.size()){playerTurn = 0;}
+        
+        for (ClientHandler player : players){
+            player.IsMyTurn = false;
+        }
+        players.get(playerTurn).IsMyTurn = true;
+    }
+    
     public static void main(String[] args) throws IOException { new GameServer(); }
 }

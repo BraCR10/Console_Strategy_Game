@@ -1,6 +1,8 @@
 package Main;
 
+import Armaments.Armaments;
 import Threads.PlayersThread;
+import Threads.StrategyTimer;
 import Warriors.Warrior;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -14,20 +16,22 @@ public class ClientHandler {
     
     public Socket socket;
     
-    public DataOutputStream playerOut;
     public DataInputStream playerIn;
+    public DataOutputStream playerOut;
     public ObjectOutputStream playerOutObj;
    
-    public String ID;
+    public Socket socketConnection;
+    
+    public DataInputStream PLAYERinINFO;
+    public DataOutputStream PLAYERoutINFO;
+    public ObjectOutputStream PLAYERinObjINFO;
+            
+    public StrategyTimer timer;
+    
+    public String ID = "";
+    public boolean IsMyTurn = false;
     public ArrayList<Warrior> warriors;
     public PlayersThread thread;
-    
-    //the idea is to receive only strings by console
-    //the server will convert the string to a command with the tokenizerArgs or something similar
-    //then the server will send 2 objs to the client a ICommand command and String[] Args
-    //finally the client  execute it locally
-    
-    //NOTE: If you hae any  other idea let me know
 
     public ClientHandler(Socket socket) {   
         try {    
@@ -36,16 +40,66 @@ public class ClientHandler {
             this.playerIn = new DataInputStream(this.socket.getInputStream());
             this.playerOutObj = new ObjectOutputStream(this.socket.getOutputStream()) ;
             this.warriors = new ArrayList<>();
+            this.timer = new StrategyTimer();
             
         } 
         catch (IOException e){ 
             System.out.println("[ERROR]: Client could NOT connect ( ClientHandler.java -> ClientHandeler(Socket) ) ");
         }
-
+    }
+    
+    public void setSerialCommunication(Socket socket){
+        try {    
+            this.socketConnection = socket;
+            this.PLAYERoutINFO = new DataOutputStream(this.socketConnection.getOutputStream());
+            this.PLAYERinINFO = new DataInputStream(this.socketConnection.getInputStream());
+            this.PLAYERinObjINFO = new ObjectOutputStream(this.socketConnection.getOutputStream());
+            
+        } 
+        catch (IOException e){ 
+            System.out.println("[ERROR]: Client could NOT connect ( ClientHandler.java -> ClientHandeler(Socket) ) ");
+        }
+    
     }
     
     public void AddWarrior(Warrior w){
         this.warriors.add(w);
     }
     
+    public boolean WeaponsLeft(){
+        boolean state = false;
+        
+        for (int index = 0; index < 4; index++){
+            state = state || warriors.get(index).WeaponsLeft();
+        }
+        
+        return state;
+    }
+    
+    public void RA(){
+        for(Warrior w : warriors){
+            w.RechargeArm();
+        }
+    }
+
+    public void ReceiveDAMAGE(Armaments ARM){
+        for (Warrior w : warriors){
+            w.ReceiveDmg(ARM);
+        }   
+    }
+
+    public Armaments getArmament(String Warrior, String Arm){
+        Warrior w = null;
+        
+        for (Warrior war : warriors){
+            if(Warrior.toLowerCase().equals(war.getName())){
+                w = war;
+                break;
+            }
+        }
+        
+        return w.getArm(Arm);
+    }
+    
+
 }
