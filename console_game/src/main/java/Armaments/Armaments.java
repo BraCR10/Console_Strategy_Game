@@ -2,6 +2,7 @@ package Armaments;
 
 import java.util.HashMap;
 import Affinities.Affinities;
+import Affinities.Affinity;
 import java.io.Serializable;
 import java.util.Random;
 
@@ -14,6 +15,14 @@ public class Armaments implements Serializable{
 
     private final int min = 20;
     private final int max = 100;
+
+    public Armaments(Armaments arm) {
+        this.name = arm.getName();
+        this.CanBeUsed = arm.CanBeUsed;
+        this.affinity = arm.getAffinity();
+    }   
+    
+    
     
     public Armaments(String name) {
         this.name = name;
@@ -46,5 +55,15 @@ public class Armaments implements Serializable{
         return affinity;
     }
     
+    public String getHashMapStr(){
+        String str  = "";
+        
+        for (Affinities element : Affinities.values()){
+            str = "["+Affinity.getString(element)+" : "+getDamage(element) +"] - " + str;
+            
+        }
+        
+        return str;
     
+    } 
 }

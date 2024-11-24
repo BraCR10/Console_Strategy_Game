@@ -132,8 +132,7 @@ public class ClientController  {
         }
         return null;
     }   
-        
-    public void writeConsoleln(String text) {
+      public void writeConsoleln(String text) {
         JTextArea consoleTextArea = this.playerScreen.getConsoleTextArea();
         
         if(text.isEmpty())
@@ -198,7 +197,7 @@ public class ClientController  {
     
     public ClientGameScreen getPlayerScreen() {
         return playerScreen;
-    }
+    } 
     
     private void selectCommmand(String arg){
         String[] Args = arg.split("-");
@@ -207,6 +206,13 @@ public class ClientController  {
         ICommand command = manager.getCommand(MainArg);   
         command.execute(Args, this);
         
+    }
+    public void displayMsg(String msg){
+        String old =playerScreen.getChatBoxTextArea().getText();
+        if(old.isEmpty())
+            playerScreen.getChatBoxTextArea().setText(old+msg);
+        else
+            playerScreen.getChatBoxTextArea().setText(old+"\n"+msg);
     }
     
     

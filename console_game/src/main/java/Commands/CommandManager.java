@@ -9,7 +9,11 @@ public class CommandManager {
         
        registCommand(Ask.COMMAN_NAME, new Ask());
        registCommand(Attack.COMMAN_NAME, new Attack()); 
-        registCommand(ChatPrivate.COMMAN_NAME, new ChatPrivate());
+       
+       registCommand(ChatPrivate.COMMAN_NAME, new ChatPrivate());
+       registCommand(ChatPublic.COMMAN_NAME, new ChatPublic());
+       registCommand(Help.COMMAN_NAME, new Help(COMMANDS));
+        registCommand(CreatRandomBeasts.COMMAN_NAME, new CreatRandomBeasts());
        
        registCommand(CreatWarrior.COMMAN_NAME, new CreatWarrior());
        registCommand(PassTurn.COMMAN_NAME, new PassTurn());

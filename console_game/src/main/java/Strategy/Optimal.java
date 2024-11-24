@@ -1,17 +1,15 @@
 package Strategy;
 
 import Affinities.Affinities;
-import Affinities.Affinity;
 import Armaments.Armaments;
 import Main.ClientHandler;
 import Main.GameServer;
-import Utils.Tools;
+import Warriors.Warrior;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
-public class RandomDuplex implements Strategy {
+public class Optimal implements Strategy {
 
     @Override
     public Armaments doStrategy(String[] Args, GameServer server, ClientHandler player) {
@@ -21,21 +19,32 @@ public class RandomDuplex implements Strategy {
         
         Armaments arm = new Armaments(BaseWeapon);
         
-        Affinities A = Tools.getRandomEnum(Affinities.class);
-
-
-        int var = arm.getAffinity().get(A);
-        var = var *2;
-        arm.getAffinity().replace(A, var);
         
+        for (ClientHandler players : server.players){
+        
+            for (Warrior warrior : players.warriors){
+
+                for(int index = 0; index < 4; index++){
+
+                    for (Affinities aff : Affinities.values()){
+
+                        int newVal = warrior.getDamage(index, aff);
+
+                        if(newVal > arm.getDamage(aff)){
+                            arm.getAffinity().replace(aff, newVal);
+                        }         
+                    }
+                }
+            }
+        }
+ 
         player.timer.startTimer();
         
-        try {player.PLAYERoutINFO.writeUTF("Strategy [RandomDuplex] : 2x("+Affinity.getString(A)+")damege...");
+        try {player.PLAYERoutINFO.writeUTF("Strategy [Optimal] : "+arm.getHashMapStr());
             
         } catch (IOException ex) {Logger.getLogger(RandomDuplex.class.getName()).log(Level.SEVERE, null, ex);}
         
         return arm;
         
     }
-    
 }

@@ -74,14 +74,16 @@ public class GameServer {
         return null;
     }
     
-    public void PassTurn(){
+    public void PassTurn() throws IOException{
         playerTurn++;
         if (playerTurn >= players.size()){playerTurn = 0;}
         
         for (ClientHandler player : players){
             player.IsMyTurn = false;
         }
+        
         players.get(playerTurn).IsMyTurn = true;
+        players.get(playerTurn).PLAYERoutINFO.writeUTF("Is your turn");
     }
     
     public static void main(String[] args) throws IOException { new GameServer(); }

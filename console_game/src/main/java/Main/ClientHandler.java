@@ -69,8 +69,11 @@ public class ClientHandler {
     public boolean WeaponsLeft(){
         boolean state = false;
         
-        for (int index = 0; index < 4; index++){
-            state = state || warriors.get(index).WeaponsLeft();
+        int num = warriors.size();
+        if (num > 4) {num = 4;}
+        
+        for (int index = 0; index < num; index++){
+            state = state || (warriors.get(index).WeaponsLeft() && warriors.get(index).HP > 0);
         }
         
         return state;
@@ -88,17 +91,18 @@ public class ClientHandler {
         }   
     }
 
-    public Armaments getArmament(String Warrior, String Arm){
-        Warrior w = null;
+    public Armaments getArmament(String warrior, String Arm){
         
         for (Warrior war : warriors){
-            if(Warrior.toLowerCase().equals(war.getName())){
-                w = war;
-                break;
+        
+            if(warrior.toLowerCase().equals(war.getName().toLowerCase())){
+
+                return war.getArm(Arm);
             }
+        
         }
         
-        return w.getArm(Arm);
+        return null;
     }
     
 

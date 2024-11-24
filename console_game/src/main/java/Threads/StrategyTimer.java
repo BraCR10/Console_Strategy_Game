@@ -1,31 +1,38 @@
 package Threads;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class StrategyTimer {
-    
     private final int totalTime = 180;
-    private final Thread Timer;
+    private Thread timerThread;
+    private int timeRemaining;
+    
+    public void startTimer() {
+        if (timerThread != null && timerThread.isAlive()) {
+            throw new IllegalStateException("Timer is already running!");
+        }
 
-    public StrategyTimer() {
-        
-        this.Timer = new Thread(() -> {
-            
-            for (int timeRemaining = totalTime; timeRemaining >= 0; timeRemaining--) {
-                try { Thread.sleep(1000);} 
-                catch (InterruptedException ex) {
-                Logger.getLogger(StrategyTimer.class.getName()).log(Level.SEVERE, null, ex);}
+        timerThread = new Thread(() -> {
+            for (timeRemaining = totalTime; timeRemaining > 0; timeRemaining--) {
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    Thread.currentThread().interrupt();
+                    System.out.println("Timer interrupted.");
+                    return; 
+                }
             }
         });
+
+        timerThread.start();
     }
 
-    public void StartTimer(){
-        Timer.start();
+    public boolean isAlive() {
+        return timerThread != null && timerThread.isAlive();
     }
     
-    public boolean isAlive(){
-        return Timer.isAlive();
+    public String getTimeRemaining(){
+            return this.timeRemaining+"s";
+    
     }
-       
+
 }

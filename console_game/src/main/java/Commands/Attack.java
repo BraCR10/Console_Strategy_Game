@@ -15,8 +15,9 @@ public class Attack implements ICommand{
 
             
             if(client.playerData.in.readBoolean()){
-                client.writeConsoleln("[YOU ATTACKED --> ("+arg[1]+")] ");}
-            
+                
+                client.writeConsoleln("[YOU ATTACKED --> "+arg[1]+"] ");}
+
             else {
                 client.writeConsoleln(client.playerData.in.readUTF());}
         

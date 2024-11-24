@@ -2,6 +2,9 @@ package Commands;
 
 import Controller.ClientController;
 import Warriors.Warrior;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class Ask implements ICommand{
@@ -24,7 +27,31 @@ public class Ask implements ICommand{
                 client.writeConsoleln(Affinities.Affinity.getList());
             
             }
-
+            
+            case "players" -> {
+                
+            try {
+                client.writeConsoleln("Players : "+client.playerData.in.readUTF());
+            
+            } catch (IOException ex) {
+                Logger.getLogger(Ask.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            }
+            
+            case "str" -> {
+                
+            try {
+                client.writeConsoleln("Timer : "+client.playerData.in.readUTF());
+            
+            
+            } catch (IOException ex) {
+                Logger.getLogger(Ask.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            }
+            
+            
         }
         
     }

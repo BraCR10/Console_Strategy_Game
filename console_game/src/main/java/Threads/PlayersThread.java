@@ -3,7 +3,11 @@ package Threads;
 import Armaments.Armaments;
 import Main.ClientHandler;
 import Main.GameServer;
+import Strategy.Average;
+import Strategy.BestCombo;
 import Strategy.None;
+import Strategy.Optimal;
+import Strategy.RandomComb;
 import Strategy.RandomDuplex;
 import Strategy.Strategy;
 import Utils.Message;
@@ -12,6 +16,7 @@ import Warriors.Warrior;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.tools.Tool;
 
 public class PlayersThread extends Thread{
     private GameServer server;
@@ -88,6 +93,33 @@ public class PlayersThread extends Thread{
 
                 
             }
+
+            case "crb" -> {
+                
+                if(Tools.Check_CRB(server, client, Args)){
+                    client.playerOut.writeBoolean(true);
+                    
+                    int nums = Integer.parseInt(Args[1]);
+                    Tools RandomNamePicker = new Tools(Warrior.names);
+                    
+                    for (int i = 0; i < nums; i++){
+                        
+                        Warrior NewWarrior = new Warrior(RandomNamePicker.getNextName());
+                        client.AddWarrior(NewWarrior);
+                        client.playerOutObj.writeObject(NewWarrior);  
+
+                    }
+                    
+
+                
+                } else {
+                    client.playerOut.writeBoolean(false);
+                    
+                }
+                
+
+                
+            }
             
             case "atk" -> {
 
@@ -113,7 +145,10 @@ public class PlayersThread extends Thread{
                 
                 else {
                     ClientHandler Opponent = server.getClient(Args[1]);
+                    
+                    
                     client.playerOut.writeBoolean(true);
+                    
                     
                     Opponent.PLAYERoutINFO.writeUTF("ReceiveATTACK");
 
@@ -123,7 +158,7 @@ public class PlayersThread extends Thread{
                                   
                     Opponent.PLAYERinObjINFO.writeObject(ARM);
                     
-                    client.ReceiveDAMAGE(ARM);
+                    Opponent.ReceiveDAMAGE(ARM);
                     
                     server.PassTurn();
                     
@@ -132,12 +167,11 @@ public class PlayersThread extends Thread{
             
             case "cht" -> {
 
-                msg.SetMSG(Args[1]);
-                msg.isPrivate(false);
+                Message MSG = new Message(client.ID, client.ID, Args[1], Message.MessageType.PUBLIC);
                 
                 for(ClientHandler c : server.players){
-                    c.playerOut.writeUTF("ReceiveMSG");
-                    c.PLAYERinObjINFO.writeObject(msg);
+                    c.PLAYERoutINFO.writeUTF("ReceiveMSG");
+                    c.PLAYERinObjINFO.writeObject(MSG);
                 }
             }
             
@@ -146,12 +180,13 @@ public class PlayersThread extends Thread{
                 if (Tools.Check_ReceiverExists(server, client, Args)){
                     client.playerOut.writeBoolean(true);
                     ClientHandler rec = server.getClient(Args[1]);
-            
-                    msg.SetMSG(Args[2]);
-                    msg.isPrivate(true);
+                    
+                    Message MSG = new Message(client.ID, rec.ID, Args[2], Message.MessageType.PRIVATE);
+                    
+                   
 
-                    rec.playerOut.writeUTF("ReceivePMSG");
-                    rec.PLAYERinObjINFO.writeObject(msg);
+                    rec.PLAYERoutINFO.writeUTF("ReceivePMSG");
+                    rec.PLAYERinObjINFO.writeObject(MSG);
                 
                 } else {
                     client.playerOut.writeBoolean(false);
@@ -177,6 +212,29 @@ public class PlayersThread extends Thread{
                 else{client.playerOut.writeBoolean(false);}  
             }
             
+            case "ask" -> {
+                
+                if("players".equals(Args[1].toLowerCase())){
+                    
+                    String list = " - ";
+                    
+                    for (ClientHandler c : server.players){
+                        if (!"".equals(c.ID) && c.ID != null){
+                            list += c.ID+" - ";
+ 
+                        }
+
+                    }
+                    client.playerOut.writeUTF(list);
+                }
+                
+                else if("str".equals(Args[1].toLowerCase())){
+                    
+                    String msg = "You Can Use An STRATEGY in ["+client.timer.getTimeRemaining()+"]";
+                    client.playerOut.writeUTF(msg);
+                }
+            }
+            
             default -> System.out.println("[ERROR] : Command invalid ["+MainArg+"] (PlayersThread --> sentInfo(String))");
         }
     
@@ -184,6 +242,10 @@ public class PlayersThread extends Thread{
     
     private Strategy setStrategy(String Arg){
         switch (Arg.toLowerCase()) {
+            case "avg" -> {return new Average();}
+            case "bc" -> {return new BestCombo();}
+            case "op" -> {return new Optimal();}
+            case "rc" -> {return new RandomComb();}
             case "rd" -> {return new RandomDuplex();}
             default -> {return new None();}
         }

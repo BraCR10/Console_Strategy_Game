@@ -5,10 +5,39 @@ import Affinities.Affinity;
 import Main.ClientHandler;
 import Main.GameServer;
 import Warriors.Warrior;
-import static Warriors.Warrior.names;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Random;
 
 public class Tools {
+    
+    private String[] names = null; 
+    private ArrayList<String> shuffledNames;
+    private int currentIndex; 
+    
+    public Tools(String[] names) {
+        this.names = names.clone();
+        reshuffle();
+    }
+    
+    private void reshuffle() {
+        shuffledNames = new ArrayList<>();
+        Collections.addAll(shuffledNames, names); 
+        Collections.shuffle(shuffledNames);
+        currentIndex = 0;
+    }
+    public String getNextName() {
+        if (currentIndex >= shuffledNames.size()) {
+            reshuffle();
+        }
+        return shuffledNames.get(currentIndex++);
+    }
+    public boolean hasMoreNames() {
+        return currentIndex < shuffledNames.size();
+    }
+    public void reset() {
+        reshuffle();
+    }
     
     public static boolean Check_SetID(GameServer server, ClientHandler client, String[] args){
         
@@ -53,6 +82,18 @@ public class Tools {
         
         return Affinity.getAffinity(args[2]) != null;
     }    
+
+    public static boolean Check_CRB(GameServer server, ClientHandler client, String[] args){
+        if (args.length < 2){return false;}
+        int num;
+            try {
+               num = Integer.parseInt(args[1]);
+               return true;
+            }
+            catch (NumberFormatException e) {
+               return false;
+            }
+    }   
     
     public static boolean Check_IsMyTurn(GameServer server, ClientHandler client, String[] args){
         return client.IsMyTurn;    
@@ -65,15 +106,23 @@ public class Tools {
     }
     
     public static boolean Check_CanUseStr(GameServer server, ClientHandler client, String[] args){
+        
+        if (args.length < 5) {return false;}
         return "none".equals(args[4].toLowerCase()) || !client.timer.isAlive();
     }
     
     public static boolean Check_CanUseWarrior(GameServer server, ClientHandler client, String[] args){
 
         int c = 0;
+        
         for(Warrior w : client.warriors){
             if (c>= 4){break;}
+            
+            System.out.println("1 c:"+args[2].toLowerCase().equals(w.getName().toLowerCase()));
+            System.out.println("2 c:"+(w.HP > 0));
+            
             if (args[2].toLowerCase().equals(w.getName().toLowerCase()) && w.HP > 0){
+                
                 return true;          
             }
             c++;
@@ -85,15 +134,19 @@ public class Tools {
 
     public static boolean Check_CanUseWeapons(GameServer server, ClientHandler client, String[] args){
 
+        if(client.getArmament(args[2], args[3]) ==  null){return false;}
+        
+        
         int c = 0;
         for(Warrior w : client.warriors){
-            if (c>= 4){break;}
-            if (args[2].toLowerCase().equals(w.getName().toLowerCase()) && w.HP > 0){
+            
+            if (args[2].toLowerCase().equals(w.getName().toLowerCase()) && w.HP > 0 && w.getArm(args[3]) != null){
                 return w.getArm(args[3]).CanBeUsed;          
             }
+            
             c++;
         }
-        
+               
         return false;
     
     }

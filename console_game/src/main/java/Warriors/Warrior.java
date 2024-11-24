@@ -4,6 +4,7 @@ import Affinities.Affinities;
 import Affinities.Affinity;
 import Armaments.ArmFactory;
 import Armaments.Armaments;
+import Utils.Tools;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -17,7 +18,6 @@ public class Warrior implements Serializable {
 
     public static String[] names = {
         "Armityle",
-        "Back",
         "Darklord",
         "Exodia",
         "Hammer",
@@ -55,11 +55,28 @@ public class Warrior implements Serializable {
         weapons.add(ArmFactory.ArmFactory(arg[6]));
     }
     
+    
+        
+    public Warrior(String arg)  {
+        this.HP = 100;
+        this.name = arg;
+        
+        this.affinitiy = Tools.getRandomEnum(Affinities.class);
+        
+        weapons = new ArrayList<>();
+        
+        weapons.add(ArmFactory.ArmFactory("w1"));
+        weapons.add(ArmFactory.ArmFactory("w2"));
+        weapons.add(ArmFactory.ArmFactory("w3"));
+        weapons.add(ArmFactory.ArmFactory("w4"));
+    }
+    
     public void ReceiveDmg(Armaments arm){
         int damage = arm.getDamage(this.affinitiy);
         
         if (damage <= this.HP){this.HP = this.HP - damage;}
         else {this.HP = 0;}
+
     }
     
     public int getDamage(int index, Affinities Aff){
@@ -98,10 +115,11 @@ public class Warrior implements Serializable {
 
     public Armaments getArm(String NAME){
         for (Armaments arm : weapons){
-            if(arm.getName().equals(NAME)){
+            if(arm.getName().toLowerCase().equals(NAME.toLowerCase())){
                 return arm;
             }
         }
         return null;
-    }    
+    } 
+   
 }

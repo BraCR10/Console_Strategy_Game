@@ -2,6 +2,7 @@ package Threads;
 
 import Armaments.Armaments;
 import Controller.ClientController;
+import Utils.Message;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -28,25 +29,19 @@ public class ReceiveDataFromServer extends Thread{
                         
                         Armaments arm = (Armaments) client.playerData.inObjINFO.readObject();
                         client.ReceiveDAMAGE(arm);
+                        client.setCards();
+                        client.writeConsoleln("You were attacked...");
                         
+                    } 
+                    
+                    case "ReceiveMSG","ReceivePMSG" -> {
+
+                        Message msg = (Message)client.playerData.inObjINFO.readObject();
+                        client.displayMsg(msg.toString());
 
                     } 
                     
-                    case "ReceiveMSG" -> {
-                        
-                        String msg = client.playerData.inINFO.readUTF();
-                        //client.ReceiveMSG(msg);
-
-                    } 
-                    
-                    case "ReceivePMSG" -> {
-                        
-                        String msg = client.playerData.inINFO.readUTF();
-                        //client.ReceivePMSG(msg);
-
-                    }   
-                    
-                    default -> System.out.print("..."+arg+"...");
+                    default -> client.writeConsoleln("// "+arg+" //");
                 }
                 
                 

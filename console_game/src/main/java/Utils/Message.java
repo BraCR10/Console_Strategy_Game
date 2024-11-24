@@ -52,9 +52,9 @@ public class Message implements Serializable {
     @Override
     public String toString() {
         if(type == MessageType.PUBLIC)
-            return senderID + " said: " + message;
+            return "["+senderID+"]" + " said:\n" + message+"\n----------------------------------------------------";
         else 
-            return senderID + " sent you a private message: " + message;
+            return "["+senderID+"]" + " sent you a private message:\n" + message+"\n----------------------------------------------------";
     }
     
 }
