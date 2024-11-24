@@ -49,13 +49,7 @@ public class ClientController  {
     private void init() {
         playerScreen.setTitle("Console Game");
         this.writeConsoleln("Console initialized | Enter your ID and Cards : ");//first prompt
-        
-        addClickListener(playerScreen.getCard1Label());
-        addClickListener(playerScreen.getCard2Label());
-        addClickListener(playerScreen.getCard3Label());
-        addClickListener(playerScreen.getCard4Label());
-        
-        
+ 
         try {
             this.playerData.connectGame(this);
         } catch (IOException ex) {
@@ -71,18 +65,26 @@ public class ClientController  {
         this.playerScreen.setVisible(true);
     }
     
+
     public void ReceiveDAMAGE(Armaments ARM){
-        this.playerData.ReceiveDAMAGE(ARM);
+        String[] data=new String[this.playerScreen.getTableLastAttackReceived().getColumnCount()];
+        int count=0;
+        for (Warrior w : this.playerData.warriors){
+            w.ReceiveDmg(ARM);
+            data[count]=w.getName()+"_-"+ARM.getDamage(w.affinitiy);
+            count++;
+        }   
+        displayDataAttaked(data);
         setCards();
     }
+    public void displayDataAttaked(String[] data){
+        
+        for (int i = 0; i < this.playerScreen.getTableLastAttackReceived().getColumnCount(); i++) {
+            String[] dataSplited = data[i].split("_");
+            this.playerScreen.getTableLastAttackReceived().setValueAt(dataSplited[0],i,0);
+            this.playerScreen.getTableLastAttackReceived().setValueAt(dataSplited[1],i,1);
+        }
     
-    private void addClickListener(JLabel label) {//adding listener to the cards
-        label.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                writeConsoleln("Clicked on "+e.getClass().getName());
-            }
-        });
     }
     
     public void setCards(){//temp function
