@@ -46,7 +46,7 @@ public class PlayersThread extends Thread{
             }
         }
     }
-    
+   
     private void sentInfo(String args) throws IOException{
         
         String[] Args = args.split("-");
@@ -168,8 +168,6 @@ public class PlayersThread extends Thread{
                     
                     client.playerOut.writeInt(Opponent.ReceiveDAMAGE(ARM));//total damage done
                     
-                    
-                    
                     server.PassTurn();
                     
                 }
@@ -259,6 +257,12 @@ public class PlayersThread extends Thread{
             case "rd" -> {return new RandomDuplex();}
             default -> {return new None();}
         }
+    }
+    
+    private String[] generateInfoToClientAttack(){
+    
+    
+    return new String[MIN_PRIORITY];
     }
     
 }

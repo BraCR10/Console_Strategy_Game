@@ -50,7 +50,7 @@ public class ReceiveDataFromServer extends Thread{
                     default -> client.writeConsoleln("// "+arg+" //");
                 }
                 
-                
+
             } catch (IOException ex) {
                 System.out.println("[ERROR]: Player could NOT Receive Data From the Server ( ReceiveDataFromServer.java -> run() ) ");
                 Logger.getLogger(AcceptClients.class.getName()).log(Level.SEVERE, null, ex);

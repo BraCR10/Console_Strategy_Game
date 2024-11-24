@@ -223,10 +223,10 @@ public class ClientController  {
         String msgText = "You had attacked "+ receptor +" with "+character+"\n" + "Weapon: "+weapon;
         this.playerScreen.getLastAttackSentTextArea().setText(msgText);
         this.playerScreen.getTotalDamageSentTextFiled().setText("-"+String.valueOf(totalDamage));
-        
-        
-    
     }
+    //public void updateWinsStat(String ){
+    
+    //}
     public void displayMsg(String msg){
         String old =playerScreen.getChatBoxTextArea().getText();
         if(old.isEmpty())

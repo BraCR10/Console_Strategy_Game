@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class ClientHandler {
@@ -32,7 +33,8 @@ public class ClientHandler {
     public boolean IsMyTurn = false;
     public ArrayList<Warrior> warriors;
     public PlayersThread thread;
-
+    
+    public HashMap<String, Integer> clientStats ;
     public ClientHandler(Socket socket) {   
         try {    
             this.socket = socket;
@@ -41,7 +43,8 @@ public class ClientHandler {
             this.playerOutObj = new ObjectOutputStream(this.socket.getOutputStream()) ;
             this.warriors = new ArrayList<>();
             this.timer = new StrategyTimer();
-            
+            clientStats= new  HashMap<>();
+            this.fillStatsKeys();
         } 
         catch (IOException e){ 
             System.out.println("[ERROR]: Client could NOT connect ( ClientHandler.java -> ClientHandeler(Socket) ) ");
@@ -107,5 +110,13 @@ public class ClientHandler {
         return null;
     }
     
+    private void fillStatsKeys(){
+        this.clientStats.put("wins", 0);
+        this.clientStats.put("loses", 0);
+        this.clientStats.put("attack", 0);
+        this.clientStats.put("succes", 0);
+        this.clientStats.put("failed", 0);
+        this.clientStats.put("giveup", 0);
+    }
 
 }
