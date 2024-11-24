@@ -24,8 +24,8 @@ public class ClientGameScreen extends javax.swing.JFrame {
     public ClientGameScreen() {
         initComponents();
         this.setVisible(false);
-        for (int i = 0; i < 4; i++)tableLastAttackReceived.setValueAt("", i, 0);
-        for (int i = 0; i < 10; i++)tableRankings.setValueAt(String.valueOf(i+1), i, 0);
+        for (int i = 0; i < tableLastAttackReceived.getRowCount(); i++)tableLastAttackReceived.setValueAt("", i, 0);
+        for (int i = 0; i < tableRankings.getRowCount(); i++)tableRankings.setValueAt(String.valueOf(i+1), i, 0);
         this.tableAgainst.getTableHeader().setReorderingAllowed(false);
         this.tableCardStats.getTableHeader().setReorderingAllowed(false);
         this.tableLastAttackReceived.getTableHeader().setReorderingAllowed(false);

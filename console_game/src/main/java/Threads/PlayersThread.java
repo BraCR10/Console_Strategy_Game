@@ -157,6 +157,9 @@ public class PlayersThread extends Thread{
                     Armaments ARM = stra.doStrategy(Args, server, client);
                                   
                     Opponent.PLAYERinObjINFO.writeObject(ARM);
+                    Opponent.PLAYERoutINFO.writeUTF(client.ID);//who sends
+                    Opponent.PLAYERoutINFO.writeUTF(Args[2]);//character
+                    Opponent.PLAYERoutINFO.writeUTF(Args[3]);//weapon
                     
                     Opponent.ReceiveDAMAGE(ARM);
                     

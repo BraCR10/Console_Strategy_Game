@@ -66,24 +66,27 @@ public class ClientController  {
     }
     
 
-    public void ReceiveDAMAGE(Armaments ARM){
-        String[] data=new String[this.playerScreen.getTableLastAttackReceived().getColumnCount()];
+    public void ReceiveDAMAGE(Armaments ARM,String sender,String character,String weapon){
+        String[] data=new String[this.playerScreen.getTableLastAttackReceived().getRowCount()];
         int count=0;
         for (Warrior w : this.playerData.warriors){
             w.ReceiveDmg(ARM);
             data[count]=w.getName()+"_-"+ARM.getDamage(w.affinitiy);
             count++;
         }   
-        displayDataAttaked(data);
+        displayDataAttaked(data,sender,character,weapon);
         setCards();
     }
-    public void displayDataAttaked(String[] data){
+    public void displayDataAttaked(String[] dataString,String sender,String character,String weapon){
         
-        for (int i = 0; i < this.playerScreen.getTableLastAttackReceived().getColumnCount(); i++) {
-            String[] dataSplited = data[i].split("_");
+        for (int i = 0; i < this.playerScreen.getTableLastAttackReceived().getRowCount(); i++) {
+            String[] dataSplited = dataString[i].split("_");
             this.playerScreen.getTableLastAttackReceived().setValueAt(dataSplited[0],i,0);
             this.playerScreen.getTableLastAttackReceived().setValueAt(dataSplited[1],i,1);
         }
+        
+        String msgText = "Attacked by "+ sender +" with "+character+"\n" + "Weapon: "+weapon;
+        this.playerScreen.getLastAttackReceivedTextArea().setText(msgText);
     
     }
     

@@ -13,7 +13,7 @@ public class Warrior implements Serializable {
     
     public int HP;
     String name;
-    Affinities affinitiy;
+    public Affinities affinitiy;
     ArrayList<Armaments> weapons;
 
     public static String[] names = {

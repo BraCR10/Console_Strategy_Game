@@ -28,7 +28,11 @@ public class ReceiveDataFromServer extends Thread{
                     case "ReceiveATTACK" -> {
                         
                         Armaments arm = (Armaments) client.playerData.inObjINFO.readObject();
-                        client.ReceiveDAMAGE(arm);
+                        String sender = client.playerData.inINFO.readUTF();
+                        String character = client.playerData.inINFO.readUTF();
+                        String weapon = client.playerData.inINFO.readUTF();
+                        
+                        client.ReceiveDAMAGE(arm,sender,character,weapon);
                         client.setCards();
                         client.writeConsoleln("You were attacked...");
                         
