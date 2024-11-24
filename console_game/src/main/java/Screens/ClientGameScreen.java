@@ -29,7 +29,6 @@ public class ClientGameScreen extends javax.swing.JFrame {
         this.tableAgainst.getTableHeader().setReorderingAllowed(false);
         this.tableCardStats.getTableHeader().setReorderingAllowed(false);
         this.tableLastAttackReceived.getTableHeader().setReorderingAllowed(false);
-        this.tableLastAttackSent.getTableHeader().setReorderingAllowed(false);
         this.tableMyStatus.getTableHeader().setReorderingAllowed(false);
         this.tableRankings.getTableHeader().setReorderingAllowed(false);
     }
@@ -66,8 +65,8 @@ public class ClientGameScreen extends javax.swing.JFrame {
         jScrollPane7 = new javax.swing.JScrollPane();
         lastAttackSentTextArea = new javax.swing.JTextArea();
         lastAttackSentLabel = new javax.swing.JLabel();
-        jScrollPane10 = new javax.swing.JScrollPane();
-        tableLastAttackSent = new javax.swing.JTable();
+        totalDamageSentLabel = new javax.swing.JLabel();
+        totalDamageSentTextFiled = new javax.swing.JTextField();
         rightPanel = new javax.swing.JPanel();
         yourCardsLabel = new javax.swing.JLabel();
         cardsPanel = new javax.swing.JPanel();
@@ -294,30 +293,9 @@ public class ClientGameScreen extends javax.swing.JFrame {
 
         lastAttackSentLabel.setText("Last attack sent");
 
-        tableLastAttackSent.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Stats", "%"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
+        totalDamageSentLabel.setText("Total damage sent: ");
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane10.setViewportView(tableLastAttackSent);
-        if (tableLastAttackSent.getColumnModel().getColumnCount() > 0) {
-            tableLastAttackSent.getColumnModel().getColumn(0).setResizable(false);
-            tableLastAttackSent.getColumnModel().getColumn(1).setResizable(false);
-        }
+        totalDamageSentTextFiled.setText("0");
 
         javax.swing.GroupLayout lastAttackSentPanelLayout = new javax.swing.GroupLayout(lastAttackSentPanel);
         lastAttackSentPanel.setLayout(lastAttackSentPanelLayout);
@@ -327,7 +305,12 @@ public class ClientGameScreen extends javax.swing.JFrame {
             .addGroup(lastAttackSentPanelLayout.createSequentialGroup()
                 .addComponent(lastAttackSentLabel)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(lastAttackSentPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(totalDamageSentLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(totalDamageSentTextFiled, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         lastAttackSentPanelLayout.setVerticalGroup(
             lastAttackSentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -335,9 +318,11 @@ public class ClientGameScreen extends javax.swing.JFrame {
                 .addComponent(lastAttackSentLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGap(37, 37, 37)
+                .addGroup(lastAttackSentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(totalDamageSentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(totalDamageSentTextFiled, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout centrePanelLayout = new javax.swing.GroupLayout(centrePanel);
@@ -587,7 +572,6 @@ public class ClientGameScreen extends javax.swing.JFrame {
     private javax.swing.JPanel consolePanel;
     private javax.swing.JTextArea consoleTextArea;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -609,9 +593,10 @@ public class ClientGameScreen extends javax.swing.JFrame {
     private javax.swing.JTable tableAgainst;
     private javax.swing.JTable tableCardStats;
     private javax.swing.JTable tableLastAttackReceived;
-    private javax.swing.JTable tableLastAttackSent;
     private javax.swing.JTable tableMyStatus;
     private javax.swing.JTable tableRankings;
+    private javax.swing.JLabel totalDamageSentLabel;
+    private javax.swing.JTextField totalDamageSentTextFiled;
     private javax.swing.JLabel yourCardsLabel;
     // End of variables declaration//GEN-END:variables
 
@@ -772,12 +757,14 @@ public class ClientGameScreen extends javax.swing.JFrame {
         this.tableRankings = tableRankings;
     }
 
-    public JTable getTableLastAttackSent() {
-        return tableLastAttackSent;
-    }
+
 
     public JTextArea getChatBoxTextArea() {
         return chatBoxTextArea;
+    }
+
+    public JTextField getTotalDamageSentTextFiled() {
+        return totalDamageSentTextFiled;
     }
 
 

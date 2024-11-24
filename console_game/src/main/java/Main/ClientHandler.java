@@ -85,10 +85,12 @@ public class ClientHandler {
         }
     }
 
-    public void ReceiveDAMAGE(Armaments ARM){
+    public int ReceiveDAMAGE(Armaments ARM){
+        int totalDamage=0;
         for (Warrior w : warriors){
-            w.ReceiveDmg(ARM);
+            totalDamage+=w.ReceiveDmg(ARM);
         }   
+        return totalDamage;
     }
 
     public Armaments getArmament(String warrior, String Arm){

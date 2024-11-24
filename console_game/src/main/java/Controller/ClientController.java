@@ -3,18 +3,16 @@ package Controller;
 import Armaments.Armaments;
 import Commands.CommandManager;
 import Commands.ICommand;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 
-import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import Screens.ClientGameScreen;
 import ServerConnections.ClientConnectionManager;
 import Threads.ReceiveDataFromServer;
 import Utils.LoadImage;
 import Warriors.Warrior;
+
  
 public class ClientController  {
     public ClientGameScreen playerScreen;
@@ -66,18 +64,18 @@ public class ClientController  {
     }
     
 
-    public void ReceiveDAMAGE(Armaments ARM,String sender,String character,String weapon){
+    public void ReceiveDAMAGE(Armaments ARM,String sender,String character,String weapon,String affinity){
         String[] data=new String[this.playerScreen.getTableLastAttackReceived().getRowCount()];
         int count=0;
         for (Warrior w : this.playerData.warriors){
             w.ReceiveDmg(ARM);
             data[count]=w.getName()+"_-"+ARM.getDamage(w.affinitiy);
             count++;
-        }   
-        displayDataAttaked(data,sender,character,weapon);
+        } 
+        displayDataAttaked(data,sender,character,weapon,affinity);
         setCards();
     }
-    public void displayDataAttaked(String[] dataString,String sender,String character,String weapon){
+    public void displayDataAttaked(String[] dataString,String sender,String character,String weapon,String affinity){
         
         for (int i = 0; i < this.playerScreen.getTableLastAttackReceived().getRowCount(); i++) {
             String[] dataSplited = dataString[i].split("_");
@@ -85,7 +83,7 @@ public class ClientController  {
             this.playerScreen.getTableLastAttackReceived().setValueAt(dataSplited[1],i,1);
         }
         
-        String msgText = "Attacked by "+ sender +" with "+character+"\n" + "Weapon: "+weapon;
+        String msgText = "Attacked by "+ sender +" with "+character+"["+affinity+"]"+"\n" + "Weapon: "+weapon;
         this.playerScreen.getLastAttackReceivedTextArea().setText(msgText);
     
     }
@@ -210,7 +208,24 @@ public class ClientController  {
                         
         ICommand command = manager.getCommand(MainArg);   
         command.execute(Args, this);
+        if(MainArg.equals("atk")){
+            try {
+                int totalDamage = playerData.in.readInt();//receiving confirmation of server
+                displayDataNewAttak(Args[1], Args[2], Args[3],totalDamage);
+            } catch (IOException ex) {
+                writeConsoleln("The command \"" + command + "\" was not sent due to an error.");
+            }
         
+        }
+        
+    }
+    public void displayDataNewAttak(String receptor,String character,String weapon,int totalDamage){
+        String msgText = "You had attacked "+ receptor +" with "+character+"\n" + "Weapon: "+weapon;
+        this.playerScreen.getLastAttackSentTextArea().setText(msgText);
+        this.playerScreen.getTotalDamageSentTextFiled().setText("-"+String.valueOf(totalDamage));
+        
+        
+    
     }
     public void displayMsg(String msg){
         String old =playerScreen.getChatBoxTextArea().getText();

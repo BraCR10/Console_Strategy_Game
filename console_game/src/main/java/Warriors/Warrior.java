@@ -71,11 +71,12 @@ public class Warrior implements Serializable {
         weapons.add(ArmFactory.ArmFactory("w4"));
     }
     
-    public void ReceiveDmg(Armaments arm){
+    public int ReceiveDmg(Armaments arm){
         int damage = arm.getDamage(this.affinitiy);
         
         if (damage <= this.HP){this.HP = this.HP - damage;}
         else {this.HP = 0;}
+        return damage;
 
     }
     

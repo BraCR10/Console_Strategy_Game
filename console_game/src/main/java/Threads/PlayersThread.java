@@ -160,8 +160,15 @@ public class PlayersThread extends Thread{
                     Opponent.PLAYERoutINFO.writeUTF(client.ID);//who sends
                     Opponent.PLAYERoutINFO.writeUTF(Args[2]);//character
                     Opponent.PLAYERoutINFO.writeUTF(Args[3]);//weapon
+                    for (int i = 0; i < client.warriors.size(); i++) {
+                        if(client.warriors.get(i).getName().toLowerCase().equals(Args[2])){
+                            Opponent.PLAYERoutINFO.writeUTF(client.warriors.get(i).getAffinity());//affinity
+                        }
+                    }
                     
-                    Opponent.ReceiveDAMAGE(ARM);
+                    client.playerOut.writeInt(Opponent.ReceiveDAMAGE(ARM));//total damage done
+                    
+                    
                     
                     server.PassTurn();
                     
