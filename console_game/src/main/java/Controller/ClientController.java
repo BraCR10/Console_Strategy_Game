@@ -12,6 +12,9 @@ import ServerConnections.ClientConnectionManager;
 import Threads.ReceiveDataFromServer;
 import Utils.LoadImage;
 import Warriors.Warrior;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
  
 public class ClientController  {
@@ -78,9 +81,11 @@ public class ClientController  {
     public void displayDataAttaked(String[] dataString,String sender,String character,String weapon,String affinity){
         
         for (int i = 0; i < this.playerScreen.getTableLastAttackReceived().getRowCount(); i++) {
-            String[] dataSplited = dataString[i].split("_");
-            this.playerScreen.getTableLastAttackReceived().setValueAt(dataSplited[0],i,0);
-            this.playerScreen.getTableLastAttackReceived().setValueAt(dataSplited[1],i,1);
+            if(dataString[i]!=null){
+                String[] dataSplited = dataString[i].split("_");            
+                this.playerScreen.getTableLastAttackReceived().setValueAt(dataSplited[0],i,0);
+                this.playerScreen.getTableLastAttackReceived().setValueAt(dataSplited[1],i,1);
+            }
         }
         
         String msgText = "Attacked by "+ sender +" with "+character+"["+affinity+"]"+"\n" + "Weapon: "+weapon;
@@ -197,7 +202,18 @@ public class ClientController  {
             }
         });
     }
+    public void displayStats(int w,int l,int k,int s , int f, int g){
+        
+        this.playerScreen.getTableMyStatus().setValueAt(w, 0, 1);
+        this.playerScreen.getTableMyStatus().setValueAt(l, 1, 1);
+        this.playerScreen.getTableMyStatus().setValueAt(k, 2, 1);
+        this.playerScreen.getTableMyStatus().setValueAt(s, 3, 1);
+        this.playerScreen.getTableMyStatus().setValueAt(f, 4, 1);
+        this.playerScreen.getTableMyStatus().setValueAt(g, 5, 1);
+        
     
+    
+    }
     public ClientGameScreen getPlayerScreen() {
         return playerScreen;
     } 
@@ -208,15 +224,7 @@ public class ClientController  {
                         
         ICommand command = manager.getCommand(MainArg);   
         command.execute(Args, this);
-        if(MainArg.equals("atk")){
-            try {
-                int totalDamage = playerData.in.readInt();//receiving confirmation of server
-                displayDataNewAttak(Args[1], Args[2], Args[3],totalDamage);
-            } catch (IOException ex) {
-                writeConsoleln("The command \"" + command + "\" was not sent due to an error.");
-            }
-        
-        }
+
         
     }
     public void displayDataNewAttak(String receptor,String character,String weapon,int totalDamage){
@@ -224,9 +232,7 @@ public class ClientController  {
         this.playerScreen.getLastAttackSentTextArea().setText(msgText);
         this.playerScreen.getTotalDamageSentTextFiled().setText("-"+String.valueOf(totalDamage));
     }
-    //public void updateWinsStat(String ){
     
-    //}
     public void displayMsg(String msg){
         String old =playerScreen.getChatBoxTextArea().getText();
         if(old.isEmpty())

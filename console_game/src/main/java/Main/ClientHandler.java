@@ -112,9 +112,9 @@ public class ClientHandler {
     
     private void fillStatsKeys(){
         this.clientStats.put("wins", 0);
-        this.clientStats.put("loses", 0);
-        this.clientStats.put("attack", 0);
-        this.clientStats.put("succes", 0);
+        this.clientStats.put("losses", 0);
+        this.clientStats.put("kills", 0);
+        this.clientStats.put("success", 0);
         this.clientStats.put("failed", 0);
         this.clientStats.put("giveup", 0);
     }

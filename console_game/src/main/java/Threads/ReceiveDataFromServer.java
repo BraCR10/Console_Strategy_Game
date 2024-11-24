@@ -4,6 +4,7 @@ import Armaments.Armaments;
 import Controller.ClientController;
 import Utils.Message;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,7 +34,13 @@ public class ReceiveDataFromServer extends Thread{
                         String weapon = client.playerData.inINFO.readUTF();
                         String affinity = client.playerData.inINFO.readUTF();
                         
-                        
+                        int wins = client.playerData.inINFO.readInt();
+                        int losses = client.playerData.inINFO.readInt();
+                        int kills = client.playerData.inINFO.readInt();
+                        int success = client.playerData.inINFO.readInt();
+                        int failed = client.playerData.inINFO.readInt();
+                        int giveup = client.playerData.inINFO.readInt();
+                        client.displayStats(wins,losses,kills,success,failed,giveup);
                         client.ReceiveDAMAGE(arm,sender,character,weapon,affinity);
                         client.setCards();
                         client.writeConsoleln("You were attacked...");
@@ -50,7 +57,7 @@ public class ReceiveDataFromServer extends Thread{
                     default -> client.writeConsoleln("// "+arg+" //");
                 }
                 
-
+   
             } catch (IOException ex) {
                 System.out.println("[ERROR]: Player could NOT Receive Data From the Server ( ReceiveDataFromServer.java -> run() ) ");
                 Logger.getLogger(AcceptClients.class.getName()).log(Level.SEVERE, null, ex);

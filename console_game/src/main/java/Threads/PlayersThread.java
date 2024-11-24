@@ -16,7 +16,6 @@ import Warriors.Warrior;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.tools.Tool;
 
 public class PlayersThread extends Thread{
     private GameServer server;
@@ -165,9 +164,40 @@ public class PlayersThread extends Thread{
                             Opponent.PLAYERoutINFO.writeUTF(client.warriors.get(i).getAffinity());//affinity
                         }
                     }
+                    int damage=Opponent.ReceiveDAMAGE(ARM);
+                    client.playerOut.writeInt(damage);//total damage done
                     
-                    client.playerOut.writeInt(Opponent.ReceiveDAMAGE(ARM));//total damage done
+                    //wins and losses
+                    if(damage>100){
+                        int wins = client.clientStats.get("wins");
+                        client.clientStats.put("wins",wins+1);
+                    }else{
+                        int losses = client.clientStats.get("losses");
+                        client.clientStats.put("losses",losses+1);
+                    }
+                    //warriors deleted
+                    for (int i = 0; i < Opponent.warriors.size(); i++) {
+                        if(Opponent.warriors.get(i).HP==0){
+                            int kills = client.clientStats.get("kills");
+                            client.clientStats.put("kills",kills+1);
+                        }
+                    }
+                     //always sending stats to client
+                    client.playerOut.writeInt(client.clientStats.get("wins"));
+                    client.playerOut.writeInt(client.clientStats.get("losses"));
+                    client.playerOut.writeInt(client.clientStats.get("kills"));
+                    client.playerOut.writeInt(client.clientStats.get("success"));
+                    client.playerOut.writeInt(client.clientStats.get("failed"));
+                    client.playerOut.writeInt(client.clientStats.get("giveup"));
                     
+                    //always sending stats to opponent
+                     Opponent.PLAYERoutINFO.writeInt(Opponent.clientStats.get("wins"));
+                     Opponent.PLAYERoutINFO.writeInt(Opponent.clientStats.get("losses"));
+                     Opponent.PLAYERoutINFO.writeInt(Opponent.clientStats.get("kills"));
+                     Opponent.PLAYERoutINFO.writeInt(Opponent.clientStats.get("success"));
+                     Opponent.PLAYERoutINFO.writeInt(Opponent.clientStats.get("failed"));
+                     Opponent.PLAYERoutINFO.writeInt(Opponent.clientStats.get("giveup"));
+     
                     server.PassTurn();
                     
                 }
@@ -245,6 +275,7 @@ public class PlayersThread extends Thread{
             
             default -> System.out.println("[ERROR] : Command invalid ["+MainArg+"] (PlayersThread --> sentInfo(String))");
         }
+
     
     }
     
