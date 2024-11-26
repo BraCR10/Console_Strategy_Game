@@ -3,12 +3,9 @@ package Controller;
 import Armaments.Armaments;
 import Commands.CommandManager;
 import Commands.ICommand;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 
 
-import javax.swing.JLabel;
 import javax.swing.JTextArea;
 import Screens.ClientGameScreen;
 import ServerConnections.ClientConnectionManager;

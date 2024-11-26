@@ -163,7 +163,7 @@ public class PlayersThread extends Thread{
 
                     Opponent.PLAYERoutINFO.writeUTF(message);
                     
-                    Opponent.ReceiveDAMAGE(ARM,client);
+                    int damage=Opponent.ReceiveDAMAGE(ARM,client);
                     //----------------------------------------------------------
                     
                     client.PLAYERoutINFO.writeUTF("SentATTACK");
@@ -173,6 +173,7 @@ public class PlayersThread extends Thread{
                             +"STR.: "+stra.getToStr();
                     
                     client.PLAYERoutINFO.writeUTF(message);
+                    client.PLAYERoutINFO.writeInt(damage);
                     
                     server.PassTurn();
                     

@@ -30,6 +30,7 @@ public class ReceiveDataFromServer extends Thread{
                         
                         String display = client.playerData.inINFO.readUTF();
                         this.client.playerScreen.getLastAttackSentTextArea().setText(display);
+                        this.client.playerScreen.getTotalDamageTextField().setText(String.valueOf(client.playerData.inINFO.readInt()));
                     
                     }
                     

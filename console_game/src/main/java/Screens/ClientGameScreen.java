@@ -27,10 +27,10 @@ public class ClientGameScreen extends javax.swing.JFrame {
         this.setVisible(false);
         for (int i = 0; i < 4; i++)tableLastAttackReceived.setValueAt("", i, 0);
         for (int i = 0; i < 10; i++)tableRankings.setValueAt(String.valueOf(i+1), i, 0);
+        tableAgainst.setValueAt("Player", 6, 0);
         this.tableAgainst.getTableHeader().setReorderingAllowed(false);
         this.tableCardStats.getTableHeader().setReorderingAllowed(false);
         this.tableLastAttackReceived.getTableHeader().setReorderingAllowed(false);
-        this.tableLastAttackSent.getTableHeader().setReorderingAllowed(false);
         this.tableMyStatus.getTableHeader().setReorderingAllowed(false);
         this.tableRankings.getTableHeader().setReorderingAllowed(false);
     }
@@ -67,8 +67,8 @@ public class ClientGameScreen extends javax.swing.JFrame {
         jScrollPane7 = new javax.swing.JScrollPane();
         lastAttackSentTextArea = new javax.swing.JTextArea();
         lastAttackSentLabel = new javax.swing.JLabel();
-        jScrollPane10 = new javax.swing.JScrollPane();
-        tableLastAttackSent = new javax.swing.JTable();
+        totalDamageTextField = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         rightPanel = new javax.swing.JPanel();
         yourCardsLabel = new javax.swing.JLabel();
         cardsPanel = new javax.swing.JPanel();
@@ -99,7 +99,8 @@ public class ClientGameScreen extends javax.swing.JFrame {
                 {"Attacks", null},
                 {"Success", null},
                 {"Failed", null},
-                {"Giveup", null}
+                {"Giveup", null},
+                {null, null}
             },
             new String [] {
                 "Against", "%"
@@ -204,9 +205,9 @@ public class ClientGameScreen extends javax.swing.JFrame {
                 .addComponent(rankingLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );
@@ -295,30 +296,9 @@ public class ClientGameScreen extends javax.swing.JFrame {
 
         lastAttackSentLabel.setText("Last attack sent");
 
-        tableLastAttackSent.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null},
-                {null, null},
-                {null, null},
-                {null, null}
-            },
-            new String [] {
-                "Stats", "%"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false
-            };
+        totalDamageTextField.setEditable(false);
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jScrollPane10.setViewportView(tableLastAttackSent);
-        if (tableLastAttackSent.getColumnModel().getColumnCount() > 0) {
-            tableLastAttackSent.getColumnModel().getColumn(0).setResizable(false);
-            tableLastAttackSent.getColumnModel().getColumn(1).setResizable(false);
-        }
+        jLabel1.setText("Total damage:");
 
         javax.swing.GroupLayout lastAttackSentPanelLayout = new javax.swing.GroupLayout(lastAttackSentPanel);
         lastAttackSentPanel.setLayout(lastAttackSentPanelLayout);
@@ -328,7 +308,12 @@ public class ClientGameScreen extends javax.swing.JFrame {
             .addGroup(lastAttackSentPanelLayout.createSequentialGroup()
                 .addComponent(lastAttackSentLabel)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lastAttackSentPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(totalDamageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63))
         );
         lastAttackSentPanelLayout.setVerticalGroup(
             lastAttackSentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -336,9 +321,11 @@ public class ClientGameScreen extends javax.swing.JFrame {
                 .addComponent(lastAttackSentLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane10, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addGap(40, 40, 40)
+                .addGroup(lastAttackSentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(totalDamageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout centrePanelLayout = new javax.swing.GroupLayout(centrePanel);
@@ -587,8 +574,8 @@ public class ClientGameScreen extends javax.swing.JFrame {
     private javax.swing.JLabel consoleLabel;
     private javax.swing.JPanel consolePanel;
     private javax.swing.JTextArea consoleTextArea;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane10;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
@@ -610,9 +597,9 @@ public class ClientGameScreen extends javax.swing.JFrame {
     private javax.swing.JTable tableAgainst;
     private javax.swing.JTable tableCardStats;
     private javax.swing.JTable tableLastAttackReceived;
-    private javax.swing.JTable tableLastAttackSent;
     private javax.swing.JTable tableMyStatus;
     private javax.swing.JTable tableRankings;
+    private javax.swing.JTextField totalDamageTextField;
     private javax.swing.JLabel yourCardsLabel;
     // End of variables declaration//GEN-END:variables
 
@@ -795,12 +782,13 @@ public class ClientGameScreen extends javax.swing.JFrame {
     }
     
     
-    public JTable getTableLastAttackSent() {
-        return tableLastAttackSent;
-    }
 
     public JTextArea getChatBoxTextArea() {
         return chatBoxTextArea;
+    }
+
+    public JTextField getTotalDamageTextField() {
+        return totalDamageTextField;
     }
 
 
@@ -811,6 +799,7 @@ public class ClientGameScreen extends javax.swing.JFrame {
         this.tableAgainst.setValueAt(data.Succes_Counter, 3, 1);
         this.tableAgainst.setValueAt(data.Failed_Counter, 4, 1);
         this.tableAgainst.setValueAt(data.GaveUp_Counter, 5, 1);
+         this.tableAgainst.setValueAt(data.ID, 6, 1);
     }
     
     
