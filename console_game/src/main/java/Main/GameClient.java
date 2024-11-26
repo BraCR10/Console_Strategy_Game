@@ -12,7 +12,6 @@ public class GameClient {
     public GameClient() throws InterruptedException {        
         screenController = new ClientController(new ClientGameScreen(),new ClientConnectionManager());
         screenController.showScreen();
-
     }
 
 
