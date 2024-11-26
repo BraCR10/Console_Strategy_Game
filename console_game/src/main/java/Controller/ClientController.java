@@ -79,14 +79,15 @@ public class ClientController  {
         setCards();
         
     }
-    public void displayDataAttaked(String[] data){
-        
+     public void displayDataAttaked(String[] data){
         for (int i = 0; i < this.playerScreen.getTableLastAttackReceived().getRowCount(); i++) {
-            String[] dataSplited = data[i].split("_");
-            this.playerScreen.getTableLastAttackReceived().setValueAt(dataSplited[0],i,0);
-            this.playerScreen.getTableLastAttackReceived().setValueAt(dataSplited[1],i,1);
+            if(data[i]!=null){
+                 String[] dataSplited = data[i].split("_");
+                this.playerScreen.getTableLastAttackReceived().setValueAt(dataSplited[0],i,0);
+                this.playerScreen.getTableLastAttackReceived().setValueAt(dataSplited[1],i,1);
+            }
         }
-    
+        
     }
     
     public void setCards(){//temp function
