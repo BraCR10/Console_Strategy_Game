@@ -203,16 +203,23 @@ public class ClientController  {
         });
     }
     public void displayStats(int w,int l,int k,int s , int f, int g){
-        
         this.playerScreen.getTableMyStatus().setValueAt(w, 0, 1);
         this.playerScreen.getTableMyStatus().setValueAt(l, 1, 1);
         this.playerScreen.getTableMyStatus().setValueAt(k, 2, 1);
         this.playerScreen.getTableMyStatus().setValueAt(s, 3, 1);
         this.playerScreen.getTableMyStatus().setValueAt(f, 4, 1);
         this.playerScreen.getTableMyStatus().setValueAt(g, 5, 1);
-        
-    
-    
+
+    }
+    public void displayStatsOp(int w,int l,int k,int s , int f, int g,String n){
+        this.playerScreen.getTableAgainst().setValueAt(w, 0, 1);
+        this.playerScreen.getTableAgainst().setValueAt(l, 1, 1);
+        this.playerScreen.getTableAgainst().setValueAt(k, 2, 1);
+        this.playerScreen.getTableAgainst().setValueAt(s, 3, 1);
+        this.playerScreen.getTableAgainst().setValueAt(f, 4, 1);
+        this.playerScreen.getTableAgainst().setValueAt(g, 5, 1);
+        this.playerScreen.getTableAgainst().setValueAt(n, 6, 1);
+
     }
     public ClientGameScreen getPlayerScreen() {
         return playerScreen;

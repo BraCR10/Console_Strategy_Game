@@ -31,6 +31,11 @@ public class ClientGameScreen extends javax.swing.JFrame {
         this.tableLastAttackReceived.getTableHeader().setReorderingAllowed(false);
         this.tableMyStatus.getTableHeader().setReorderingAllowed(false);
         this.tableRankings.getTableHeader().setReorderingAllowed(false);
+        
+        
+        this.tableAgainst.setValueAt("Kills", 2, 0);
+        this.tableAgainst.setValueAt("Enemy", 6, 0);
+        this.tableMyStatus.setValueAt("Kills", 2, 0);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -97,7 +102,8 @@ public class ClientGameScreen extends javax.swing.JFrame {
                 {"Attacks", null},
                 {"Success", null},
                 {"Failed", null},
-                {"Giveup", null}
+                {"Giveup", null},
+                {null, null}
             },
             new String [] {
                 "Against", "%"
@@ -202,9 +208,9 @@ public class ClientGameScreen extends javax.swing.JFrame {
                 .addComponent(rankingLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 183, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(20, 20, 20))
         );

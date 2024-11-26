@@ -190,13 +190,22 @@ public class PlayersThread extends Thread{
                     client.playerOut.writeInt(client.clientStats.get("failed"));
                     client.playerOut.writeInt(client.clientStats.get("giveup"));
                     
+                    //always sending stats of the opponet to client
+                    client.playerOut.writeInt(Opponent.clientStats.get("wins"));
+                    client.playerOut.writeInt(Opponent.clientStats.get("losses"));
+                    client.playerOut.writeInt(Opponent.clientStats.get("kills"));
+                    client.playerOut.writeInt(Opponent.clientStats.get("success"));
+                    client.playerOut.writeInt(Opponent.clientStats.get("failed"));
+                    client.playerOut.writeInt(Opponent.clientStats.get("giveup"));
+                    client.playerOut.writeUTF(Opponent.ID);
+                    
                     //always sending stats to opponent
-                     Opponent.PLAYERoutINFO.writeInt(Opponent.clientStats.get("wins"));
-                     Opponent.PLAYERoutINFO.writeInt(Opponent.clientStats.get("losses"));
-                     Opponent.PLAYERoutINFO.writeInt(Opponent.clientStats.get("kills"));
-                     Opponent.PLAYERoutINFO.writeInt(Opponent.clientStats.get("success"));
-                     Opponent.PLAYERoutINFO.writeInt(Opponent.clientStats.get("failed"));
-                     Opponent.PLAYERoutINFO.writeInt(Opponent.clientStats.get("giveup"));
+                    Opponent.PLAYERoutINFO.writeInt(Opponent.clientStats.get("wins"));
+                    Opponent.PLAYERoutINFO.writeInt(Opponent.clientStats.get("losses"));
+                    Opponent.PLAYERoutINFO.writeInt(Opponent.clientStats.get("kills"));
+                    Opponent.PLAYERoutINFO.writeInt(Opponent.clientStats.get("success"));
+                    Opponent.PLAYERoutINFO.writeInt(Opponent.clientStats.get("failed"));
+                    Opponent.PLAYERoutINFO.writeInt(Opponent.clientStats.get("giveup"));
      
                     server.PassTurn();
                     
