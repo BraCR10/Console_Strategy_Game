@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 
 public class ClientHandler {
@@ -34,7 +33,14 @@ public class ClientHandler {
     public ArrayList<Warrior> warriors;
     public PlayersThread thread;
     
-    public HashMap<String, Integer> clientStats ;
+    public int Win_Counter = 0;
+    public int Lose_Counter = 0;
+    public int Attacks_Counter = 0;
+    public int Succes_Counter = 0;
+    public int Failed_Counter = 0;
+    public int GaveUp_Counter = 0;
+    
+    
     public ClientHandler(Socket socket) {   
         try {    
             this.socket = socket;
@@ -43,8 +49,7 @@ public class ClientHandler {
             this.playerOutObj = new ObjectOutputStream(this.socket.getOutputStream()) ;
             this.warriors = new ArrayList<>();
             this.timer = new StrategyTimer();
-            clientStats= new  HashMap<>();
-            this.fillStatsKeys();
+            
         } 
         catch (IOException e){ 
             System.out.println("[ERROR]: Client could NOT connect ( ClientHandler.java -> ClientHandeler(Socket) ) ");
@@ -88,12 +93,14 @@ public class ClientHandler {
         }
     }
 
-    public int ReceiveDAMAGE(Armaments ARM){
-        int totalDamage=0;
+    public int ReceiveDAMAGE(Armaments ARM, ClientHandler client){
+        int damage=0;
         for (Warrior w : warriors){
-            totalDamage+=w.ReceiveDmg(ARM);
+            w.ReceiveDmg(ARM,client);
+            damage+=ARM.getDamage(w.affinitiy);
         }   
-        return totalDamage;
+        
+        return damage;
     }
 
     public Armaments getArmament(String warrior, String Arm){
@@ -110,13 +117,5 @@ public class ClientHandler {
         return null;
     }
     
-    private void fillStatsKeys(){
-        this.clientStats.put("wins", 0);
-        this.clientStats.put("losses", 0);
-        this.clientStats.put("kills", 0);
-        this.clientStats.put("success", 0);
-        this.clientStats.put("failed", 0);
-        this.clientStats.put("giveup", 0);
-    }
 
 }

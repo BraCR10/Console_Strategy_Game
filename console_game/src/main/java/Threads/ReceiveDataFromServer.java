@@ -3,8 +3,8 @@ package Threads;
 import Armaments.Armaments;
 import Controller.ClientController;
 import Utils.Message;
+import Utils.SentPlayersInfo;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,22 +26,22 @@ public class ReceiveDataFromServer extends Thread{
                 String arg = client.playerData.inINFO.readUTF();
                 
                 switch (arg) {
+                    case "SentATTACK" -> {
+                        
+                        String display = client.playerData.inINFO.readUTF();
+                        this.client.playerScreen.getLastAttackSentTextArea().setText(display);
+                        this.client.playerScreen.getTotalDamageTextField().setText(String.valueOf(client.playerData.inINFO.readInt()));
+                    
+                    }
+                    
                     case "ReceiveATTACK" -> {
                         
                         Armaments arm = (Armaments) client.playerData.inObjINFO.readObject();
-                        String sender = client.playerData.inINFO.readUTF();
-                        String character = client.playerData.inINFO.readUTF();
-                        String weapon = client.playerData.inINFO.readUTF();
-                        String affinity = client.playerData.inINFO.readUTF();
+                        client.ReceiveDAMAGE(arm);
                         
-                        int wins = client.playerData.inINFO.readInt();
-                        int losses = client.playerData.inINFO.readInt();
-                        int kills = client.playerData.inINFO.readInt();
-                        int success = client.playerData.inINFO.readInt();
-                        int failed = client.playerData.inINFO.readInt();
-                        int giveup = client.playerData.inINFO.readInt();
-                        client.displayStats(wins,losses,kills,success,failed,giveup);
-                        client.ReceiveDAMAGE(arm,sender,character,weapon,affinity);
+                        String display = client.playerData.inINFO.readUTF();
+                        this.client.playerScreen.getLastAttackReceivedTextArea().setText(display);
+                        
                         client.setCards();
                         client.writeConsoleln("You were attacked...");
                         
@@ -54,10 +54,19 @@ public class ReceiveDataFromServer extends Thread{
 
                     } 
                     
+                    case "SetMyInfo" -> {
+                        
+                        SentPlayersInfo data = (SentPlayersInfo) client.playerData.inObjINFO.readObject();
+                        this.client.playerScreen.setTableMyStatus(data);
+                        
+                        SentPlayersInfo[] rankings = (SentPlayersInfo[]) client.playerData.inObjINFO.readObject();
+                        this.client.playerScreen.setTableRankings(rankings);
+                    }
+                    
                     default -> client.writeConsoleln("// "+arg+" //");
                 }
                 
-   
+                
             } catch (IOException ex) {
                 System.out.println("[ERROR]: Player could NOT Receive Data From the Server ( ReceiveDataFromServer.java -> run() ) ");
                 Logger.getLogger(AcceptClients.class.getName()).log(Level.SEVERE, null, ex);

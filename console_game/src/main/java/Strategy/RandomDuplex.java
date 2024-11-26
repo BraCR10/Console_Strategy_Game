@@ -12,7 +12,13 @@ import java.util.logging.Logger;
 
 
 public class RandomDuplex implements Strategy {
+    private String ToStr = "";
 
+    @Override
+    public String getToStr() {
+        return ToStr;
+    }
+    
     @Override
     public Armaments doStrategy(String[] Args, GameServer server, ClientHandler player) {
         
@@ -30,7 +36,8 @@ public class RandomDuplex implements Strategy {
         
         player.timer.startTimer();
         
-        try {player.PLAYERoutINFO.writeUTF("Strategy [RandomDuplex] : 2x("+Affinity.getString(A)+")damege...");
+        this.ToStr = "Strategy [RandomDuplex] : 2x("+Affinity.getString(A)+")damege...";
+        try {player.PLAYERoutINFO.writeUTF(this.ToStr);
             
         } catch (IOException ex) {Logger.getLogger(RandomDuplex.class.getName()).log(Level.SEVERE, null, ex);}
         

@@ -10,7 +10,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class BestCombo implements Strategy {
+    private String ToStr = "";
 
+    @Override
+    public String getToStr() {
+        return ToStr;
+    }
+    
     @Override
     public Armaments doStrategy(String[] Args, GameServer server, ClientHandler player) {
         
@@ -36,7 +42,8 @@ public class BestCombo implements Strategy {
         
         player.timer.startTimer();
         
-        try {player.PLAYERoutINFO.writeUTF("Strategy [BestCombo] : "+arm.getHashMapStr());
+        this.ToStr = "Strategy [BestCombo] : "+arm.getHashMapStr();
+        try {player.PLAYERoutINFO.writeUTF(this.ToStr);
             
         } catch (IOException ex) {Logger.getLogger(RandomDuplex.class.getName()).log(Level.SEVERE, null, ex);}
         

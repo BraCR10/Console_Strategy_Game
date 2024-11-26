@@ -430,12 +430,12 @@
                           <Component id="lastAttackSentLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
-                      <Group type="102" alignment="0" attributes="0">
-                          <EmptySpace max="-2" attributes="0"/>
-                          <Component id="totalDamageSentLabel" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                          <Component id="totalDamageSentTextFiled" min="-2" pref="134" max="-2" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
                           <EmptySpace max="32767" attributes="0"/>
+                          <Component id="jLabel1" min="-2" pref="95" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="totalDamageTextField" min="-2" pref="88" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -445,12 +445,12 @@
                           <Component id="lastAttackSentLabel" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                           <Component id="jScrollPane7" min="-2" max="-2" attributes="0"/>
-                          <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="40" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
-                              <Component id="totalDamageSentLabel" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
-                              <Component id="totalDamageSentTextFiled" alignment="3" min="-2" pref="51" max="-2" attributes="0"/>
+                              <Component id="totalDamageTextField" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="3" min="-2" pref="37" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="37" max="32767" attributes="0"/>
+                          <EmptySpace pref="48" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -477,14 +477,14 @@
                     <Property name="text" type="java.lang.String" value="Last attack sent"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JLabel" name="totalDamageSentLabel">
+                <Component class="javax.swing.JTextField" name="totalDamageTextField">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="Total damage sent: "/>
+                    <Property name="editable" type="boolean" value="false"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JTextField" name="totalDamageSentTextFiled">
+                <Component class="javax.swing.JLabel" name="jLabel1">
                   <Properties>
-                    <Property name="text" type="java.lang.String" value="0"/>
+                    <Property name="text" type="java.lang.String" value="Total damage:"/>
                   </Properties>
                 </Component>
               </SubComponents>

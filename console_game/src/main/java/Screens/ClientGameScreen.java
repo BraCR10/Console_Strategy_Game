@@ -6,6 +6,7 @@ package Screens;
 
 import Affinities.Affinities;
 import Affinities.Affinity;
+import Utils.SentPlayersInfo;
 import Warriors.Warrior;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -24,18 +25,14 @@ public class ClientGameScreen extends javax.swing.JFrame {
     public ClientGameScreen() {
         initComponents();
         this.setVisible(false);
-        for (int i = 0; i < tableLastAttackReceived.getRowCount(); i++)tableLastAttackReceived.setValueAt("", i, 0);
-        for (int i = 0; i < tableRankings.getRowCount(); i++)tableRankings.setValueAt(String.valueOf(i+1), i, 0);
+        for (int i = 0; i < 4; i++)tableLastAttackReceived.setValueAt("", i, 0);
+        for (int i = 0; i < 10; i++)tableRankings.setValueAt(String.valueOf(i+1), i, 0);
+        tableAgainst.setValueAt("Player", 6, 0);
         this.tableAgainst.getTableHeader().setReorderingAllowed(false);
         this.tableCardStats.getTableHeader().setReorderingAllowed(false);
         this.tableLastAttackReceived.getTableHeader().setReorderingAllowed(false);
         this.tableMyStatus.getTableHeader().setReorderingAllowed(false);
         this.tableRankings.getTableHeader().setReorderingAllowed(false);
-        
-        
-        this.tableAgainst.setValueAt("Kills", 2, 0);
-        this.tableAgainst.setValueAt("Enemy", 6, 0);
-        this.tableMyStatus.setValueAt("Kills", 2, 0);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -70,8 +67,8 @@ public class ClientGameScreen extends javax.swing.JFrame {
         jScrollPane7 = new javax.swing.JScrollPane();
         lastAttackSentTextArea = new javax.swing.JTextArea();
         lastAttackSentLabel = new javax.swing.JLabel();
-        totalDamageSentLabel = new javax.swing.JLabel();
-        totalDamageSentTextFiled = new javax.swing.JTextField();
+        totalDamageTextField = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
         rightPanel = new javax.swing.JPanel();
         yourCardsLabel = new javax.swing.JLabel();
         cardsPanel = new javax.swing.JPanel();
@@ -299,9 +296,9 @@ public class ClientGameScreen extends javax.swing.JFrame {
 
         lastAttackSentLabel.setText("Last attack sent");
 
-        totalDamageSentLabel.setText("Total damage sent: ");
+        totalDamageTextField.setEditable(false);
 
-        totalDamageSentTextFiled.setText("0");
+        jLabel1.setText("Total damage:");
 
         javax.swing.GroupLayout lastAttackSentPanelLayout = new javax.swing.GroupLayout(lastAttackSentPanel);
         lastAttackSentPanel.setLayout(lastAttackSentPanelLayout);
@@ -311,12 +308,12 @@ public class ClientGameScreen extends javax.swing.JFrame {
             .addGroup(lastAttackSentPanelLayout.createSequentialGroup()
                 .addComponent(lastAttackSentLabel)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(lastAttackSentPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(totalDamageSentLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(totalDamageSentTextFiled, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lastAttackSentPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(totalDamageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(63, 63, 63))
         );
         lastAttackSentPanelLayout.setVerticalGroup(
             lastAttackSentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -324,11 +321,11 @@ public class ClientGameScreen extends javax.swing.JFrame {
                 .addComponent(lastAttackSentLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(37, 37, 37)
+                .addGap(40, 40, 40)
                 .addGroup(lastAttackSentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(totalDamageSentLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(totalDamageSentTextFiled, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(37, Short.MAX_VALUE))
+                    .addComponent(totalDamageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(48, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout centrePanelLayout = new javax.swing.GroupLayout(centrePanel);
@@ -577,6 +574,7 @@ public class ClientGameScreen extends javax.swing.JFrame {
     private javax.swing.JLabel consoleLabel;
     private javax.swing.JPanel consolePanel;
     private javax.swing.JTextArea consoleTextArea;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -601,8 +599,7 @@ public class ClientGameScreen extends javax.swing.JFrame {
     private javax.swing.JTable tableLastAttackReceived;
     private javax.swing.JTable tableMyStatus;
     private javax.swing.JTable tableRankings;
-    private javax.swing.JLabel totalDamageSentLabel;
-    private javax.swing.JTextField totalDamageSentTextFiled;
+    private javax.swing.JTextField totalDamageTextField;
     private javax.swing.JLabel yourCardsLabel;
     // End of variables declaration//GEN-END:variables
 
@@ -754,6 +751,16 @@ public class ClientGameScreen extends javax.swing.JFrame {
     public void setTableMyStatus(JTable tableMyStatus) {
         this.tableMyStatus = tableMyStatus;
     }
+    
+    
+    public void setTableMyStatus(SentPlayersInfo data) {
+        this.tableMyStatus.setValueAt(data.Win_Counter, 0, 1);
+        this.tableMyStatus.setValueAt(data.Lose_Counter, 1, 1);
+        this.tableMyStatus.setValueAt(data.Attacks_Counter, 2, 1);
+        this.tableMyStatus.setValueAt(data.Succes_Counter, 3, 1);
+        this.tableMyStatus.setValueAt(data.Failed_Counter, 4, 1);
+        this.tableMyStatus.setValueAt(data.GaveUp_Counter, 5, 1);
+    }
 
     public JTable getTableRankings() {
         return tableRankings;
@@ -763,18 +770,37 @@ public class ClientGameScreen extends javax.swing.JFrame {
         this.tableRankings = tableRankings;
     }
 
-
+    public void setTableRankings(SentPlayersInfo[] data) {
+        
+        for (int index = 0; (index < 10 && index < data.length);index++ ){
+            
+            this.tableRankings.setValueAt(data[index].ID, index, 1);
+            this.tableRankings.setValueAt(data[index].Score, index, 2);
+        
+        }
+  
+    }
+    
+    
 
     public JTextArea getChatBoxTextArea() {
         return chatBoxTextArea;
     }
 
-    public JTextField getTotalDamageSentTextFiled() {
-        return totalDamageSentTextFiled;
+    public JTextField getTotalDamageTextField() {
+        return totalDamageTextField;
     }
 
 
-   
+   public void setTableAgainst (SentPlayersInfo data) {
+        this.tableAgainst.setValueAt(data.Win_Counter, 0, 1);
+        this.tableAgainst.setValueAt(data.Lose_Counter, 1, 1);
+        this.tableAgainst.setValueAt(data.Attacks_Counter, 2, 1);
+        this.tableAgainst.setValueAt(data.Succes_Counter, 3, 1);
+        this.tableAgainst.setValueAt(data.Failed_Counter, 4, 1);
+        this.tableAgainst.setValueAt(data.GaveUp_Counter, 5, 1);
+         this.tableAgainst.setValueAt(data.ID, 6, 1);
+    }
     
     
 }

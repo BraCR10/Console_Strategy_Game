@@ -12,10 +12,6 @@ import ServerConnections.ClientConnectionManager;
 import Threads.ReceiveDataFromServer;
 import Utils.LoadImage;
 import Warriors.Warrior;
-import java.util.HashMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
  
 public class ClientController  {
     public ClientGameScreen playerScreen;
@@ -67,29 +63,29 @@ public class ClientController  {
     }
     
 
-    public void ReceiveDAMAGE(Armaments ARM,String sender,String character,String weapon,String affinity){
+    public void ReceiveDAMAGE(Armaments ARM){
+        
         String[] data=new String[this.playerScreen.getTableLastAttackReceived().getRowCount()];
         int count=0;
         for (Warrior w : this.playerData.warriors){
             w.ReceiveDmg(ARM);
-            data[count]=w.getName()+"_-"+ARM.getDamage(w.affinitiy);
+            
+            if(count < data.length){
+                data[count]=w.getName()+"_-"+ARM.getDamage(w.affinitiy);
+            }
             count++;
-        } 
-        displayDataAttaked(data,sender,character,weapon,affinity);
+        }   
+        displayDataAttaked(data);
         setCards();
+        
     }
-    public void displayDataAttaked(String[] dataString,String sender,String character,String weapon,String affinity){
+    public void displayDataAttaked(String[] data){
         
         for (int i = 0; i < this.playerScreen.getTableLastAttackReceived().getRowCount(); i++) {
-            if(dataString[i]!=null){
-                String[] dataSplited = dataString[i].split("_");            
-                this.playerScreen.getTableLastAttackReceived().setValueAt(dataSplited[0],i,0);
-                this.playerScreen.getTableLastAttackReceived().setValueAt(dataSplited[1],i,1);
-            }
+            String[] dataSplited = data[i].split("_");
+            this.playerScreen.getTableLastAttackReceived().setValueAt(dataSplited[0],i,0);
+            this.playerScreen.getTableLastAttackReceived().setValueAt(dataSplited[1],i,1);
         }
-        
-        String msgText = "Attacked by "+ sender +" with "+character+"["+affinity+"]"+"\n" + "Weapon: "+weapon;
-        this.playerScreen.getLastAttackReceivedTextArea().setText(msgText);
     
     }
     
@@ -202,25 +198,7 @@ public class ClientController  {
             }
         });
     }
-    public void displayStats(int w,int l,int k,int s , int f, int g){
-        this.playerScreen.getTableMyStatus().setValueAt(w, 0, 1);
-        this.playerScreen.getTableMyStatus().setValueAt(l, 1, 1);
-        this.playerScreen.getTableMyStatus().setValueAt(k, 2, 1);
-        this.playerScreen.getTableMyStatus().setValueAt(s, 3, 1);
-        this.playerScreen.getTableMyStatus().setValueAt(f, 4, 1);
-        this.playerScreen.getTableMyStatus().setValueAt(g, 5, 1);
-
-    }
-    public void displayStatsOp(int w,int l,int k,int s , int f, int g,String n){
-        this.playerScreen.getTableAgainst().setValueAt(w, 0, 1);
-        this.playerScreen.getTableAgainst().setValueAt(l, 1, 1);
-        this.playerScreen.getTableAgainst().setValueAt(k, 2, 1);
-        this.playerScreen.getTableAgainst().setValueAt(s, 3, 1);
-        this.playerScreen.getTableAgainst().setValueAt(f, 4, 1);
-        this.playerScreen.getTableAgainst().setValueAt(g, 5, 1);
-        this.playerScreen.getTableAgainst().setValueAt(n, 6, 1);
-
-    }
+    
     public ClientGameScreen getPlayerScreen() {
         return playerScreen;
     } 
@@ -231,15 +209,8 @@ public class ClientController  {
                         
         ICommand command = manager.getCommand(MainArg);   
         command.execute(Args, this);
-
         
     }
-    public void displayDataNewAttak(String receptor,String character,String weapon,int totalDamage){
-        String msgText = "You had attacked "+ receptor +" with "+character+"\n" + "Weapon: "+weapon;
-        this.playerScreen.getLastAttackSentTextArea().setText(msgText);
-        this.playerScreen.getTotalDamageSentTextFiled().setText("-"+String.valueOf(totalDamage));
-    }
-    
     public void displayMsg(String msg){
         String old =playerScreen.getChatBoxTextArea().getText();
         if(old.isEmpty())
