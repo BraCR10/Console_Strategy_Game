@@ -66,6 +66,10 @@ public class Tools {
         return false;
     }
 
+    public static boolean Check_IsPlaying (GameServer server, ClientHandler client, String[] args){
+        return client.IsPlaying;
+    }
+    
     public static boolean Check_CrtW(GameServer server, ClientHandler client, String[] args){
         boolean NameFound = false;
         

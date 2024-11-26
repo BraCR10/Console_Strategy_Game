@@ -112,7 +112,27 @@ public class ClientController  {
         this.playerScreen.getCard4Label().setIcon(LoadImage.loadImageAdjusted("/cards//"+str+".png", CART_WIDTH, CART_HEIGHT));
         this.playerScreen.getCard4AvgTextField().setText(hp);
     }
-   
+
+    public void setEmptyCards(){
+
+        this.playerScreen.getCard1Label().setIcon(LoadImage.loadImageAdjusted("/cards//back.png", CART_WIDTH, CART_HEIGHT));
+        this.playerScreen.getCard1AvgTextField().setText("");
+        
+        this.playerScreen.getCard2Label().setIcon(LoadImage.loadImageAdjusted("/cards//back.png", CART_WIDTH, CART_HEIGHT));
+        this.playerScreen.getCard2AvgTextField().setText("");
+        
+        this.playerScreen.getCard3Label().setIcon(LoadImage.loadImageAdjusted("/cards//back.png", CART_WIDTH, CART_HEIGHT));
+        this.playerScreen.getCard3AvgTextField().setText("");
+        
+        this.playerScreen.getCard4Label().setIcon(LoadImage.loadImageAdjusted("/cards//back.png", CART_WIDTH, CART_HEIGHT));
+        this.playerScreen.getCard4AvgTextField().setText("");
+    
+        
+        this.playerScreen.getCardPomptTextField().setText("");
+        this.playerScreen.setTableCardStatsEMPTY();
+    }
+    
+    
     private String getCardName(int index){
         try {
             return this.playerData.warriors.get(index).getName();

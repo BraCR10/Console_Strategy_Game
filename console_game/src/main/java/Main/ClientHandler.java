@@ -40,6 +40,8 @@ public class ClientHandler {
     public int Failed_Counter = 0;
     public int GaveUp_Counter = 0;
     
+    public boolean IsPlaying = true;
+     public boolean WantsPeace = false;
     
     public ClientHandler(Socket socket) {   
         try {    

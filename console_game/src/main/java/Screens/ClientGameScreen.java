@@ -793,6 +793,19 @@ public class ClientGameScreen extends javax.swing.JFrame {
         }
     }
     
+    public void setTableCardStatsEMPTY() {
+        for (int row = 0; row < 4; row++){            
+
+            this.tableCardStats.setValueAt(null, row, 0);
+            
+            for (int col = 1; col < 11; col++){
+
+                this.tableCardStats.setValueAt(null, row, col);
+            
+            }
+        }
+    }
+    
 
     public JTable getTableLastAttackReceived() {
         return tableLastAttackReceived;

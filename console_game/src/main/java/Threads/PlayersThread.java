@@ -123,8 +123,12 @@ public class PlayersThread extends Thread{
             }
             
             case "atk" -> {
+                
+                if (!Tools.Check_IsPlaying(server, client, Args)){client.playerOut.writeBoolean(false);
+                    client.playerOut.writeUTF("[ERROR] : You ARE NOT play this game, anymore....");
+                }
 
-                if (!Tools.Check_IsMyTurn(server, client, Args)){client.playerOut.writeBoolean(false);
+                else if (!Tools.Check_IsMyTurn(server, client, Args)){client.playerOut.writeBoolean(false);
                     client.playerOut.writeUTF("[ERROR] : Error is NOT your turn....");
                 }
                                                 
@@ -145,6 +149,8 @@ public class PlayersThread extends Thread{
                 }
                 
                 else {
+                    client.Attacks_Counter++;
+                    
                     ClientHandler Opponent = server.getClient(Args[1]);
                                         
                     client.playerOut.writeBoolean(true);
@@ -175,8 +181,9 @@ public class PlayersThread extends Thread{
                     client.PLAYERoutINFO.writeUTF(message);
                     client.PLAYERoutINFO.writeInt(damage);
                     
-                    server.PassTurn();
-                    
+                    server.Check_Loser(Opponent);
+                    server.PassTurn(); 
+                    server.Check_Winer(client);
                 }
             }
             
@@ -211,7 +218,8 @@ public class PlayersThread extends Thread{
             }
 
             case "pass" -> {
-                if (Tools.Check_IsMyTurn(server, client, Args)){
+                if (Tools.Check_IsMyTurn(server, client, Args) &&
+                    Tools.Check_IsPlaying(server, client, Args)){
                     client.playerOut.writeBoolean(true);
                     server.PassTurn();}
                 
@@ -221,7 +229,7 @@ public class PlayersThread extends Thread{
             }
             
             case "ra" ->{
-                if (!client.WeaponsLeft()){
+                if (!client.WeaponsLeft() && Tools.Check_IsPlaying(server, client, Args)){
                     client.RA();
                     client.playerOut.writeBoolean(true);}
                 else{client.playerOut.writeBoolean(false);}  
@@ -270,6 +278,62 @@ public class PlayersThread extends Thread{
                     client.playerOut.writeBoolean(false);
 
                 } 
+            }
+            
+            case "give up" -> {  
+
+                if(Tools.Check_IsPlaying(server, client, Args)){
+                   client.playerOut.writeBoolean(true);
+
+                    client.IsPlaying = false;
+                    client.warriors.clear();
+                    client.GaveUp_Counter ++;
+
+                    client.PLAYERoutINFO.writeUTF("YOU LOST");
+                    client.PLAYERoutINFO.writeUTF("YOU GAVE UP ....");
+
+                    for (ClientHandler p : server.players){
+                        server.Check_Winer(p);}
+
+                } else {
+                   client.playerOut.writeBoolean(false);
+                      
+               }    
+            }
+            
+            case "peace" -> { 
+                if(Tools.Check_IsPlaying(server, client, Args)){
+                    client.playerOut.writeBoolean(true);
+
+                    client.WantsPeace = true;
+                    for(ClientHandler c : server.players){ 
+                        c.PLAYERoutINFO.writeUTF("Peace");
+                        c.PLAYERoutINFO.writeUTF("["+client.ID+" asked for PEACE] : to replay use peace command...");
+                    }
+                    server.Check_Peace();
+
+                } else {
+                   client.playerOut.writeBoolean(false);
+                      
+               } 
+            }
+            
+            case "ng+" -> {
+                if(!Tools.Check_IsPlaying(server, client, Args)){
+                    client.playerOut.writeBoolean(true);
+
+                    client.IsPlaying = true;
+                    
+                    for(ClientHandler c : server.players){ 
+                        c.PLAYERoutINFO.writeUTF(" "+client.ID+" started a NEW GAME+ ");
+                    }
+
+                } else {
+                   client.playerOut.writeBoolean(false);
+                      
+               } 
+            
+            
             }
             
             default -> System.out.println("[ERROR] : Command invalid ["+MainArg+"] (PlayersThread --> sentInfo(String))");

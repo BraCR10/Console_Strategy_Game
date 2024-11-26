@@ -63,6 +63,29 @@ public class ReceiveDataFromServer extends Thread{
                         this.client.playerScreen.setTableRankings(rankings);
                     }
                     
+                    case "YOU LOST" -> {
+                        client.playerData.warriors.clear();
+                        client.writeConsoleln(client.playerData.inINFO.readUTF());
+                        client.setEmptyCards();
+                    }
+                    
+                    case "Peace" -> {
+                        client.writeConsoleln(client.playerData.inINFO.readUTF());              
+                    }
+                    
+                    case "ALL GAVE UP" -> {
+                        client.playerData.warriors.clear();
+                        client.writeConsoleln(client.playerData.inINFO.readUTF());
+                        client.setEmptyCards();
+                    }  
+                    
+                    
+                    case "WON" -> {
+                        client.playerData.warriors.clear();
+                        client.setEmptyCards();
+                        client.writeConsoleln(client.playerData.inINFO.readUTF());
+                    }   
+                    
                     default -> client.writeConsoleln("// "+arg+" //");
                 }
                 

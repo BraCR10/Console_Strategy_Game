@@ -17,6 +17,10 @@ public class CommandManager {
        
        registCommand(SelectPlayer.COMMAN_NAME, new SelectPlayer());
        
+       registCommand(GiveUp.COMMAN_NAME, new GiveUp());
+       registCommand(Peace.COMMAN_NAME, new Peace());
+       registCommand(NewGame.COMMAN_NAME, new NewGame());
+       
        registCommand(CreatWarrior.COMMAN_NAME, new CreatWarrior());
        registCommand(PassTurn.COMMAN_NAME, new PassTurn());
        registCommand(RechargeArmaments.COMMAN_NAME, new RechargeArmaments());

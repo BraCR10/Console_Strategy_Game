@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.util.ArrayList;
 import Utils.Message;
+import Utils.SentPlayersInfo;
 
 
 public class GameServer {
@@ -75,8 +76,13 @@ public class GameServer {
     }
     
     public void PassTurn() throws IOException{
-        playerTurn++;
-        if (playerTurn >= players.size()){playerTurn = 0;}
+       
+        do {
+            playerTurn++;
+            if (playerTurn >= players.size()){playerTurn = 0;}
+          }
+          while (!players.get(playerTurn).IsPlaying);
+        
         
         for (ClientHandler player : players){
             player.IsMyTurn = false;
@@ -84,6 +90,70 @@ public class GameServer {
         
         players.get(playerTurn).IsMyTurn = true;
         players.get(playerTurn).PLAYERoutINFO.writeUTF("Is your turn");
+    }
+    
+    public void Check_Loser(ClientHandler player) throws IOException{
+
+        if ((player.warriors.size() >= 4 &&
+            (player.warriors.get(0).HP <= 0 &&
+             player.warriors.get(1).HP <= 0 &&
+             player.warriors.get(2).HP <= 0 &&
+             player.warriors.get(3).HP <= 0))){
+
+                player.Lose_Counter++;
+                player.IsPlaying = false;
+
+                player.PLAYERoutINFO.writeUTF("YOU LOST");
+                player.warriors.clear();
+
+                player.PLAYERoutINFO.writeUTF(" YOU LOST (˙◠˙) ");
+                
+                player.PLAYERoutINFO.writeUTF("SetMyInfo");
+                player.PLAYERinObjINFO.writeObject(new SentPlayersInfo(player));
+                player.PLAYERinObjINFO.writeObject(SentPlayersInfo.getList(this.players));
+        }
+       
+        
+    }
+    
+    public void Check_Winer(ClientHandler player) throws IOException{
+        int activePlayers = 0;
+        for (ClientHandler p : players){
+            if(p.IsPlaying){activePlayers++;}
+        }
+        
+        if (player.IsPlaying && activePlayers == 1){
+            player.Win_Counter++;
+            
+            player.PLAYERoutINFO.writeUTF("WON");
+            player.warriors.clear();
+ 
+            player.PLAYERoutINFO.writeUTF("YOU WON !!!!!!!!!!!!\n--------[\\( ﾟヮﾟ)/🏆]-------");
+            player.IsPlaying = false;
+        }
+       
+        
+    }
+    
+    public void Check_Peace() throws IOException{
+
+        boolean all_Gave_Up = true;
+
+        for (ClientHandler player : players){
+            all_Gave_Up &= player.WantsPeace;
+        } 
+
+        if(all_Gave_Up){
+            for (ClientHandler player : players){
+                    player.PLAYERoutINFO.writeUTF("ALL GAVE UP");
+                    
+                    player.IsPlaying = false;
+                    player.warriors.clear();
+                    
+                    player.PLAYERoutINFO.writeUTF(" YOU ALL CHOOSE ☮︎ ");
+            } 
+        }
+            
     }
     
     public static void main(String[] args) throws IOException { new GameServer(); }
