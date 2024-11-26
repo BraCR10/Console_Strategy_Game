@@ -90,8 +90,15 @@ public class ClientGameScreen extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        mainPanel.setBackground(new java.awt.Color(0, 0, 0));
+
+        leftPanel.setBackground(new java.awt.Color(0, 51, 102));
+
+        rankingLabel.setForeground(new java.awt.Color(255, 255, 255));
         rankingLabel.setText("Ranking");
 
+        tableAgainst.setBackground(new java.awt.Color(0, 102, 204));
+        tableAgainst.setForeground(new java.awt.Color(255, 255, 255));
         tableAgainst.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Wins", null},
@@ -121,6 +128,8 @@ public class ClientGameScreen extends javax.swing.JFrame {
             tableAgainst.getColumnModel().getColumn(1).setResizable(false);
         }
 
+        tableRankings.setBackground(new java.awt.Color(0, 102, 204));
+        tableRankings.setForeground(new java.awt.Color(255, 255, 255));
         tableRankings.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
@@ -155,6 +164,8 @@ public class ClientGameScreen extends javax.swing.JFrame {
             tableRankings.getColumnModel().getColumn(0).setResizable(false);
         }
 
+        tableMyStatus.setBackground(new java.awt.Color(0, 102, 204));
+        tableMyStatus.setForeground(new java.awt.Color(255, 255, 255));
         tableMyStatus.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Wins", null},
@@ -212,6 +223,10 @@ public class ClientGameScreen extends javax.swing.JFrame {
                 .addGap(20, 20, 20))
         );
 
+        consolePanel.setBackground(new java.awt.Color(0, 51, 102));
+
+        consoleLabel.setBackground(new java.awt.Color(0, 51, 102));
+        consoleLabel.setForeground(new java.awt.Color(255, 255, 255));
         consoleLabel.setText("Console");
 
         consoleTextArea.setColumns(20);
@@ -223,23 +238,33 @@ public class ClientGameScreen extends javax.swing.JFrame {
         consolePanelLayout.setHorizontalGroup(
             consolePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(consolePanelLayout.createSequentialGroup()
-                .addComponent(consoleLabel)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane1)
+                .addContainerGap()
+                .addGroup(consolePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(consolePanelLayout.createSequentialGroup()
+                        .addComponent(consoleLabel)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         consolePanelLayout.setVerticalGroup(
             consolePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(consolePanelLayout.createSequentialGroup()
                 .addComponent(consoleLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 197, Short.MAX_VALUE)
+                .addContainerGap())
         );
+
+        lastAttackReceivedPanel.setBackground(new java.awt.Color(0, 51, 102));
 
         lastAttackReceivedTextArea.setEditable(false);
         lastAttackReceivedTextArea.setColumns(20);
+        lastAttackReceivedTextArea.setForeground(new java.awt.Color(0, 0, 0));
         lastAttackReceivedTextArea.setRows(5);
         jScrollPane5.setViewportView(lastAttackReceivedTextArea);
 
+        tableLastAttackReceived.setBackground(new java.awt.Color(0, 51, 102));
+        tableLastAttackReceived.setForeground(new java.awt.Color(255, 255, 255));
         tableLastAttackReceived.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {"Wins", null},
@@ -265,55 +290,68 @@ public class ClientGameScreen extends javax.swing.JFrame {
             tableLastAttackReceived.getColumnModel().getColumn(1).setResizable(false);
         }
 
+        lastAttackReceivedLabel.setForeground(new java.awt.Color(255, 255, 255));
         lastAttackReceivedLabel.setText("Last attack received");
 
         javax.swing.GroupLayout lastAttackReceivedPanelLayout = new javax.swing.GroupLayout(lastAttackReceivedPanel);
         lastAttackReceivedPanel.setLayout(lastAttackReceivedPanelLayout);
         lastAttackReceivedPanelLayout.setHorizontalGroup(
             lastAttackReceivedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane5)
-            .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(lastAttackReceivedPanelLayout.createSequentialGroup()
-                .addComponent(lastAttackReceivedLabel)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(lastAttackReceivedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5)
+                    .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(lastAttackReceivedPanelLayout.createSequentialGroup()
+                        .addComponent(lastAttackReceivedLabel)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         lastAttackReceivedPanelLayout.setVerticalGroup(
             lastAttackReceivedPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(lastAttackReceivedPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(20, 20, 20)
                 .addComponent(lastAttackReceivedLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(26, 26, 26))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        lastAttackSentPanel.setBackground(new java.awt.Color(0, 51, 102));
 
         lastAttackSentTextArea.setEditable(false);
         lastAttackSentTextArea.setColumns(20);
         lastAttackSentTextArea.setRows(5);
         jScrollPane7.setViewportView(lastAttackSentTextArea);
 
+        lastAttackSentLabel.setForeground(new java.awt.Color(255, 255, 255));
         lastAttackSentLabel.setText("Last attack sent");
 
         totalDamageTextField.setEditable(false);
 
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("Total damage:");
 
         javax.swing.GroupLayout lastAttackSentPanelLayout = new javax.swing.GroupLayout(lastAttackSentPanel);
         lastAttackSentPanel.setLayout(lastAttackSentPanelLayout);
         lastAttackSentPanelLayout.setHorizontalGroup(
             lastAttackSentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane7, javax.swing.GroupLayout.DEFAULT_SIZE, 279, Short.MAX_VALUE)
-            .addGroup(lastAttackSentPanelLayout.createSequentialGroup()
-                .addComponent(lastAttackSentLabel)
-                .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, lastAttackSentPanelLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(21, Short.MAX_VALUE)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(totalDamageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(63, 63, 63))
+            .addGroup(lastAttackSentPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(lastAttackSentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane7)
+                    .addGroup(lastAttackSentPanelLayout.createSequentialGroup()
+                        .addComponent(lastAttackSentLabel)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         lastAttackSentPanelLayout.setVerticalGroup(
             lastAttackSentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -325,7 +363,7 @@ public class ClientGameScreen extends javax.swing.JFrame {
                 .addGroup(lastAttackSentPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(totalDamageTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(48, Short.MAX_VALUE))
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout centrePanelLayout = new javax.swing.GroupLayout(centrePanel);
@@ -341,24 +379,36 @@ public class ClientGameScreen extends javax.swing.JFrame {
         centrePanelLayout.setVerticalGroup(
             centrePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(centrePanelLayout.createSequentialGroup()
-                .addComponent(lastAttackReceivedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lastAttackSentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addComponent(lastAttackReceivedPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lastAttackSentPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        rightPanel.setBackground(new java.awt.Color(0, 51, 102));
+
+        yourCardsLabel.setBackground(new java.awt.Color(255, 255, 255));
         yourCardsLabel.setText("Your Cards");
 
+        cardsPanel.setBackground(new java.awt.Color(0, 51, 102));
+
         card1AvgTextField.setEditable(false);
+        card1AvgTextField.setBackground(new java.awt.Color(102, 0, 51));
+        card1AvgTextField.setForeground(new java.awt.Color(255, 255, 255));
         card1AvgTextField.setText("0%");
 
         card2AvgTextField.setEditable(false);
+        card2AvgTextField.setBackground(new java.awt.Color(102, 0, 51));
+        card2AvgTextField.setForeground(new java.awt.Color(255, 255, 255));
         card2AvgTextField.setText("0%");
 
         card3AvgTextField.setEditable(false);
+        card3AvgTextField.setBackground(new java.awt.Color(102, 0, 51));
+        card3AvgTextField.setForeground(new java.awt.Color(255, 255, 255));
         card3AvgTextField.setText("0%");
 
         card4AvgTextField.setEditable(false);
+        card4AvgTextField.setBackground(new java.awt.Color(102, 0, 51));
+        card4AvgTextField.setForeground(new java.awt.Color(255, 255, 255));
         card4AvgTextField.setText("0%");
 
         javax.swing.GroupLayout cardsPanelLayout = new javax.swing.GroupLayout(cardsPanel);
@@ -407,6 +457,8 @@ public class ClientGameScreen extends javax.swing.JFrame {
                         .addComponent(card4AvgTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
         );
 
+        tableCardStats.setBackground(new java.awt.Color(0, 102, 204));
+        tableCardStats.setForeground(new java.awt.Color(255, 255, 255));
         tableCardStats.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null},
@@ -474,14 +526,18 @@ public class ClientGameScreen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(card1PomptTextField)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(20, 20, 20))
         );
+
+        chatPanel.setBackground(new java.awt.Color(0, 51, 102));
 
         chatBoxTextArea.setEditable(false);
         chatBoxTextArea.setColumns(20);
         chatBoxTextArea.setRows(5);
         jScrollPane8.setViewportView(chatBoxTextArea);
 
+        chatLabel.setForeground(new java.awt.Color(255, 255, 255));
         chatLabel.setText("CHAT");
 
         javax.swing.GroupLayout chatPanelLayout = new javax.swing.GroupLayout(chatPanel);
@@ -489,11 +545,12 @@ public class ClientGameScreen extends javax.swing.JFrame {
         chatPanelLayout.setHorizontalGroup(
             chatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(chatPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(chatPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(chatPanelLayout.createSequentialGroup()
                         .addComponent(chatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jScrollPane8))
+                        .addGap(0, 76, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         chatPanelLayout.setVerticalGroup(
@@ -501,7 +558,8 @@ public class ClientGameScreen extends javax.swing.JFrame {
             .addGroup(chatPanelLayout.createSequentialGroup()
                 .addComponent(chatLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane8, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE))
+                .addComponent(jScrollPane8)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
@@ -527,12 +585,11 @@ public class ClientGameScreen extends javax.swing.JFrame {
             mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(chatPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addComponent(leftPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(rightPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(centrePanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(leftPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(rightPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(centrePanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(chatPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(consolePanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
