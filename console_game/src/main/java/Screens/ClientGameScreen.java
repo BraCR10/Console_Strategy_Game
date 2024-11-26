@@ -387,6 +387,7 @@ public class ClientGameScreen extends javax.swing.JFrame {
         rightPanel.setBackground(new java.awt.Color(0, 51, 102));
 
         yourCardsLabel.setBackground(new java.awt.Color(255, 255, 255));
+        yourCardsLabel.setForeground(new java.awt.Color(255, 255, 255));
         yourCardsLabel.setText("Your Cards");
 
         cardsPanel.setBackground(new java.awt.Color(0, 51, 102));
