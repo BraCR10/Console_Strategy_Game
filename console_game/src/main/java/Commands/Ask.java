@@ -51,6 +51,17 @@ public class Ask implements ICommand{
             
             }
             
+            case "myturn" -> {
+                
+            try {
+                client.writeConsoleln("My Turn : ["+client.playerData.in.readBoolean()+"]");
+            
+            
+            } catch (IOException ex) {
+                Logger.getLogger(Ask.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            }
             
         }
         

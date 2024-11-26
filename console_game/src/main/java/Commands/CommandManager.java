@@ -13,7 +13,9 @@ public class CommandManager {
        registCommand(ChatPrivate.COMMAN_NAME, new ChatPrivate());
        registCommand(ChatPublic.COMMAN_NAME, new ChatPublic());
        registCommand(Help.COMMAN_NAME, new Help(COMMANDS));
-        registCommand(CreatRandomBeasts.COMMAN_NAME, new CreatRandomBeasts());
+       registCommand(CreatRandomBeasts.COMMAN_NAME, new CreatRandomBeasts());
+       
+       registCommand(SelectPlayer.COMMAN_NAME, new SelectPlayer());
        
        registCommand(CreatWarrior.COMMAN_NAME, new CreatWarrior());
        registCommand(PassTurn.COMMAN_NAME, new PassTurn());

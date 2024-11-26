@@ -6,6 +6,7 @@ package Screens;
 
 import Affinities.Affinities;
 import Affinities.Affinity;
+import Utils.SentPlayersInfo;
 import Warriors.Warrior;
 import javax.swing.JLabel;
 import javax.swing.JTable;
@@ -763,6 +764,16 @@ public class ClientGameScreen extends javax.swing.JFrame {
     public void setTableMyStatus(JTable tableMyStatus) {
         this.tableMyStatus = tableMyStatus;
     }
+    
+    
+    public void setTableMyStatus(SentPlayersInfo data) {
+        this.tableMyStatus.setValueAt(data.Win_Counter, 0, 1);
+        this.tableMyStatus.setValueAt(data.Lose_Counter, 1, 1);
+        this.tableMyStatus.setValueAt(data.Attacks_Counter, 2, 1);
+        this.tableMyStatus.setValueAt(data.Succes_Counter, 3, 1);
+        this.tableMyStatus.setValueAt(data.Failed_Counter, 4, 1);
+        this.tableMyStatus.setValueAt(data.GaveUp_Counter, 5, 1);
+    }
 
     public JTable getTableRankings() {
         return tableRankings;
@@ -772,6 +783,18 @@ public class ClientGameScreen extends javax.swing.JFrame {
         this.tableRankings = tableRankings;
     }
 
+    public void setTableRankings(SentPlayersInfo[] data) {
+        
+        for (int index = 0; (index < 10 && index < data.length);index++ ){
+            
+            this.tableRankings.setValueAt(data[index].ID, index, 1);
+            this.tableRankings.setValueAt(data[index].Score, index, 2);
+        
+        }
+  
+    }
+    
+    
     public JTable getTableLastAttackSent() {
         return tableLastAttackSent;
     }
@@ -781,7 +804,14 @@ public class ClientGameScreen extends javax.swing.JFrame {
     }
 
 
-   
+   public void setTableAgainst (SentPlayersInfo data) {
+        this.tableAgainst.setValueAt(data.Win_Counter, 0, 1);
+        this.tableAgainst.setValueAt(data.Lose_Counter, 1, 1);
+        this.tableAgainst.setValueAt(data.Attacks_Counter, 2, 1);
+        this.tableAgainst.setValueAt(data.Succes_Counter, 3, 1);
+        this.tableAgainst.setValueAt(data.Failed_Counter, 4, 1);
+        this.tableAgainst.setValueAt(data.GaveUp_Counter, 5, 1);
+    }
     
     
 }

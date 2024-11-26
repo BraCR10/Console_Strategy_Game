@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Strategy;
 
 import Affinities.Affinities;
@@ -14,6 +10,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Average implements Strategy {
+    private String ToStr = "";
+
+    @Override
+    public String getToStr() {
+        return ToStr;
+    }
 
     @Override
     public Armaments doStrategy(String[] Args, GameServer server, ClientHandler player) {
@@ -53,7 +55,8 @@ public class Average implements Strategy {
             arm.getAffinity().replace(aff, number);
         }
         
-        try {player.PLAYERoutINFO.writeUTF("Strategy [Average] : "+number+" damage");
+        this.ToStr = "Strategy [Average] : "+number+" damage";
+        try {player.PLAYERoutINFO.writeUTF(this.ToStr);
             
         } catch (IOException ex) {Logger.getLogger(RandomDuplex.class.getName()).log(Level.SEVERE, null, ex);}
         

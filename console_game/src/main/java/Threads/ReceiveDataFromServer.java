@@ -3,6 +3,7 @@ package Threads;
 import Armaments.Armaments;
 import Controller.ClientController;
 import Utils.Message;
+import Utils.SentPlayersInfo;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,10 +26,21 @@ public class ReceiveDataFromServer extends Thread{
                 String arg = client.playerData.inINFO.readUTF();
                 
                 switch (arg) {
+                    case "SentATTACK" -> {
+                        
+                        String display = client.playerData.inINFO.readUTF();
+                        this.client.playerScreen.getLastAttackSentTextArea().setText(display);
+                    
+                    }
+                    
                     case "ReceiveATTACK" -> {
                         
                         Armaments arm = (Armaments) client.playerData.inObjINFO.readObject();
                         client.ReceiveDAMAGE(arm);
+                        
+                        String display = client.playerData.inINFO.readUTF();
+                        this.client.playerScreen.getLastAttackReceivedTextArea().setText(display);
+                        
                         client.setCards();
                         client.writeConsoleln("You were attacked...");
                         
@@ -40,6 +52,15 @@ public class ReceiveDataFromServer extends Thread{
                         client.displayMsg(msg.toString());
 
                     } 
+                    
+                    case "SetMyInfo" -> {
+                        
+                        SentPlayersInfo data = (SentPlayersInfo) client.playerData.inObjINFO.readObject();
+                        this.client.playerScreen.setTableMyStatus(data);
+                        
+                        SentPlayersInfo[] rankings = (SentPlayersInfo[]) client.playerData.inObjINFO.readObject();
+                        this.client.playerScreen.setTableRankings(rankings);
+                    }
                     
                     default -> client.writeConsoleln("// "+arg+" //");
                 }

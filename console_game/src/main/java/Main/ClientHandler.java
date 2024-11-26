@@ -32,7 +32,15 @@ public class ClientHandler {
     public boolean IsMyTurn = false;
     public ArrayList<Warrior> warriors;
     public PlayersThread thread;
-
+    
+    public int Win_Counter = 0;
+    public int Lose_Counter = 0;
+    public int Attacks_Counter = 0;
+    public int Succes_Counter = 0;
+    public int Failed_Counter = 0;
+    public int GaveUp_Counter = 0;
+    
+    
     public ClientHandler(Socket socket) {   
         try {    
             this.socket = socket;
@@ -85,9 +93,9 @@ public class ClientHandler {
         }
     }
 
-    public void ReceiveDAMAGE(Armaments ARM){
+    public void ReceiveDAMAGE(Armaments ARM, ClientHandler client){
         for (Warrior w : warriors){
-            w.ReceiveDmg(ARM);
+            w.ReceiveDmg(ARM,client);
         }   
     }
 

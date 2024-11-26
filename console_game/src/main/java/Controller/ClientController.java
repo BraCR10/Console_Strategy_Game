@@ -67,19 +67,24 @@ public class ClientController  {
     
 
     public void ReceiveDAMAGE(Armaments ARM){
-        String[] data=new String[this.playerScreen.getTableLastAttackReceived().getColumnCount()];
+        
+        String[] data=new String[this.playerScreen.getTableLastAttackReceived().getRowCount()];
         int count=0;
         for (Warrior w : this.playerData.warriors){
             w.ReceiveDmg(ARM);
-            data[count]=w.getName()+"_-"+ARM.getDamage(w.affinitiy);
+            
+            if(count < data.length){
+                data[count]=w.getName()+"_-"+ARM.getDamage(w.affinitiy);
+            }
             count++;
         }   
         displayDataAttaked(data);
         setCards();
+        
     }
     public void displayDataAttaked(String[] data){
         
-        for (int i = 0; i < this.playerScreen.getTableLastAttackReceived().getColumnCount(); i++) {
+        for (int i = 0; i < this.playerScreen.getTableLastAttackReceived().getRowCount(); i++) {
             String[] dataSplited = data[i].split("_");
             this.playerScreen.getTableLastAttackReceived().setValueAt(dataSplited[0],i,0);
             this.playerScreen.getTableLastAttackReceived().setValueAt(dataSplited[1],i,1);

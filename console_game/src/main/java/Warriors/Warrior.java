@@ -4,6 +4,7 @@ import Affinities.Affinities;
 import Affinities.Affinity;
 import Armaments.ArmFactory;
 import Armaments.Armaments;
+import Main.ClientHandler;
 import Utils.Tools;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ public class Warrior implements Serializable {
     
     public int HP;
     String name;
-    Affinities affinitiy;
+    public Affinities affinitiy;
     ArrayList<Armaments> weapons;
 
     public static String[] names = {
@@ -78,6 +79,19 @@ public class Warrior implements Serializable {
         else {this.HP = 0;}
 
     }
+
+    public void ReceiveDmg(Armaments arm, ClientHandler client){
+        int damage = arm.getDamage(this.affinitiy);
+        
+        
+        if (damage > 100){client.Succes_Counter++;}
+        else {client.Failed_Counter++;}
+        
+        if (damage <= this.HP){this.HP = this.HP - damage;}
+        else {this.HP = 0;}
+
+    }
+
     
     public int getDamage(int index, Affinities Aff){
         return weapons.get(index).getDamage(Aff);

@@ -11,6 +11,7 @@ import Strategy.RandomComb;
 import Strategy.RandomDuplex;
 import Strategy.Strategy;
 import Utils.Message;
+import Utils.SentPlayersInfo;
 import Utils.Tools;
 import Warriors.Warrior;
 import java.io.IOException;
@@ -49,7 +50,7 @@ public class PlayersThread extends Thread{
     
     private void sentInfo(String args) throws IOException{
         
-        String[] Args = args.split("-");
+        String[] Args = args.trim().split("-");
         String MainArg = Args[0].toLowerCase();
         
 
@@ -145,20 +146,33 @@ public class PlayersThread extends Thread{
                 
                 else {
                     ClientHandler Opponent = server.getClient(Args[1]);
-                    
-                    
+                                        
                     client.playerOut.writeBoolean(true);
-                    
-                    
-                    Opponent.PLAYERoutINFO.writeUTF("ReceiveATTACK");
 
-                    
                     Strategy stra = setStrategy(Args[4]);
                     Armaments ARM = stra.doStrategy(Args, server, client);
-                                  
+                    
+                    //----------------------------------------------------------
+                    Opponent.PLAYERoutINFO.writeUTF("ReceiveATTACK");              
+                    
                     Opponent.PLAYERinObjINFO.writeObject(ARM);
                     
-                    Opponent.ReceiveDAMAGE(ARM);
+                    String message = "YOU WERE ATTACKED BY.: "+client.ID+"\n"
+                            +"WARRIOR.: "+Args[2]+" - "+Args[3]+"\n"
+                            +"STR.: "+stra.getToStr();
+
+                    Opponent.PLAYERoutINFO.writeUTF(message);
+                    
+                    Opponent.ReceiveDAMAGE(ARM,client);
+                    //----------------------------------------------------------
+                    
+                    client.PLAYERoutINFO.writeUTF("SentATTACK");
+                    
+                    message = "YOU ATTACKED.: "+Args[1]+"\n"
+                            +"WARRIOR.: "+Args[2]+" - "+Args[3]+"\n"
+                            +"STR.: "+stra.getToStr();
+                    
+                    client.PLAYERoutINFO.writeUTF(message);
                     
                     server.PassTurn();
                     
@@ -233,12 +247,45 @@ public class PlayersThread extends Thread{
                     String msg = "You Can Use An STRATEGY in ["+client.timer.getTimeRemaining()+"]";
                     client.playerOut.writeUTF(msg);
                 }
+                
+                else if("myturn".equals(Args[1].toLowerCase())){
+
+                    client.playerOut.writeBoolean(client.IsMyTurn);
+                }
+                
+            }
+            
+            case "sp" -> {
+                
+                if(Tools.Check_ReceiverExists(server, client, Args)){
+                    client.playerOut.writeBoolean(true);
+                    
+                    ClientHandler rec = server.getClient(Args[1]);
+                    
+
+                    client.playerOutObj.writeObject(new SentPlayersInfo(rec));
+                    
+                } else {
+                    client.playerOut.writeBoolean(false);
+
+                } 
             }
             
             default -> System.out.println("[ERROR] : Command invalid ["+MainArg+"] (PlayersThread --> sentInfo(String))");
         }
+        
+        END_ACTION_AND_SENT_PLAYERS_INFO();
     
     }
+    
+    private void END_ACTION_AND_SENT_PLAYERS_INFO() throws IOException{
+        client.PLAYERoutINFO.writeUTF("SetMyInfo");
+        client.PLAYERinObjINFO.writeObject(new SentPlayersInfo(client));
+        client.PLAYERinObjINFO.writeObject(SentPlayersInfo.getList(server.players));
+    
+    }
+    
+    
     
     private Strategy setStrategy(String Arg){
         switch (Arg.toLowerCase()) {
